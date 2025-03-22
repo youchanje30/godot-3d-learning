@@ -1,6 +1,7 @@
 [gd_scene load_steps=6 format=3 uid="uid://dsy48o7qd4va2"]
 
-[ext_resource type="Shape3D" uid="uid://dqfr4mwl6ta6k" path="res://3DMapProcedualGenerator/floor.tres" id="1_frq1b"]
+[ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_48yg4"]
+[ext_resource type="Shape3D" uid="uid://dqfr4mwl6ta6k" path="res://3DMapProcedualGenerator/floor.tres" id="2_ln4w5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ndbo8"]
 size = Vector3(2.2, 0.2, 2.2)
@@ -9,12 +10,12 @@ size = Vector3(2.2, 0.2, 2.2)
 size = Vector3(0.2, 1, 0.7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ndbo8"]
-size = Vector3(0.2, 1, 0.5)
+size = Vector3(0.2, 1, 0.7)
 
-[sub_resource type="BoxShape3D" id="BoxShape3D_frq1b"]
-size = Vector3(2.2, 1, 2.2)
-
-[node name="Base Room" type="Node3D"]
+[node name="Base Room" type="Node3D" node_paths=PackedStringArray("passage")]
+script = ExtResource("1_48yg4")
+size = Vector3(2.2, 0.6, 2.2)
+passage = [NodePath("Passage/1"), NodePath("Passage/2"), NodePath("Passage/3"), NodePath("Passage/4")]
 
 [node name="Obj" type="Node3D" parent="."]
 
@@ -24,7 +25,7 @@ size = Vector3(2.2, 1, 2.2)
 mesh = SubResource("BoxMesh_ndbo8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Floor"]
-shape = ExtResource("1_frq1b")
+shape = ExtResource("2_ln4w5")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Wall" type="StaticBody3D" parent="Obj"]
@@ -43,7 +44,7 @@ debug_color = Color(1, 1, 1, 0.42)
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 0, 1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall5"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.19209e-07, 0.5, -0.25)
 mesh = SubResource("BoxMesh_2sogh")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall5"]
@@ -123,9 +124,16 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, -0.25)
 shape = SubResource("BoxShape3D_ndbo8")
 debug_color = Color(1, 1, 1, 0.42)
 
-[node name="Size" type="Node3D" parent="."]
+[node name="Passage" type="Node3D" parent="."]
 
-[node name="CollisionShape3D" type="CollisionShape3D" parent="Size"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
-shape = SubResource("BoxShape3D_frq1b")
-disabled = true
+[node name="1" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
+
+[node name="2" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+
+[node name="3" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
+
+[node name="4" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, 0)

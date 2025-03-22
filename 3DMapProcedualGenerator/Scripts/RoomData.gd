@@ -1,7 +1,7 @@
-extends Node
+extends Node3D
 
 @export var size : Vector3
+@export var passage : Array[Node3D]
 
-
-func GetSize()->Vector3:
+func get_size()->Vector3:
 	return size
