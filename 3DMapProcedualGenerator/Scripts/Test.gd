@@ -4,7 +4,6 @@ extends Node3D
 @export var generate_rooms_cnt : int = 10
 @export var room_path : String = "res://3DMapProcedualGenerator/Rooms/"
 var q = []
-var existing_rooms: Array[StaticBody3D] = []
 
 func _init() -> void:
 	q.push_back([Vector3.ZERO, Vector3(0, 1, 0)])
@@ -12,56 +11,27 @@ func _init() -> void:
 func _ready() -> void:
 	GenerateMaps()
 
-
-
 func GetRandomFromPath(path : String):
 	var resource_files = DirAccess.get_files_at(path)
 	var random_resource = resource_files[randi() % resource_files.size()]
 	var data = load(path + random_resource).instantiate()
 	return data
 
-#func GetRandomFromPath(path : String) -> StaticBody3D:
-	#var dir_access = DirAccess.open(path)
-	#if dir_access == null:
-		#printerr("디렉토리를 열 수 없습니다:", path)
-		#return null
-	#var resource_files = dir_access.get_files()
-	#dir_access.close()
-	#var valid_files = []
-	#for file in resource_files:
-		#if file.ends_with(".tscn") or file.ends_with(".glb"): # 씬 또는 glb 파일이라고 가정
-			#valid_files.append(file)
-			#
-	#if valid_files.is_empty():
-		#printerr("경로에 유효한 룸 파일이 없습니다:", path)
-		#return null
-	#var random_resource_path = path + valid_files[randi() % valid_files.size()]
-	#var room_resource = load(random_resource_path)
-	#if room_resource is Resource:
-		#var room_instance = room_resource.instantiate() as StaticBody3D
-		#if room_instance == null:
-			#printerr("인스턴스화 실패 또는 StaticBody3D가 아님:", random_resource_path)
-			#return null
-		#return room_instance
-	#else:
-		#printerr("리소스를 로드하는 데 실패했습니다:", random_resource_path)
-		#return null
-
-func can_place_room(position: Vector3, size: Vector3) -> bool:
-	var half_size = size / 2.0
-	var aabb = AABB(position - half_size, size)
-	var query_params = PhysicsShapeQueryParameters3D.new()
-	var box_shape = BoxShape3D.new()
-	box_shape.size = size
-	query_params.shape = box_shape
-	query_params.transform = Transform3D(Basis(), position)
-	query_params.collision_mask = 1 # 기본 충돌 레이어라고 가정
-	query_params.exclude = existing_rooms
-
-	var space_state = get_world_3d().get_direct_space_state()
-	var results = space_state.intersect_shape(query_params)
-	
-	return results.is_empty()
+#func can_place_room(position: Vector3, size: Vector3) -> bool:
+	#var half_size = size / 2.0
+	#var aabb = AABB(position - half_size, size)
+	#var query_params = PhysicsShapeQueryParameters3D.new()
+	#var box_shape = BoxShape3D.new()
+	#box_shape.size = size
+	#query_params.shape = box_shape
+	#query_params.transform = Transform3D(Basis(), position)
+	#query_params.collision_mask = 1 # 기본 충돌 레이어라고 가정
+	#query_params.exclude = existing_rooms
+#
+	#var space_state = get_world_3d().get_direct_space_state()
+	#var results = space_state.intersect_shape(query_params)
+	#
+	#return results.is_empty()
 
 func GenerateMaps() -> void:
 	var generated_cnt = 0
@@ -79,15 +49,13 @@ func GenerateMaps() -> void:
 
 				var room_size = room.get_size()
 				var new_room_pos = attach_pos + attach_dir * (room_size / 2.0)
+				add_child(room)
+				room.position = new_room_pos
 
-				if can_place_room(new_room_pos, room_size):
-					add_child(room)
-					room.position = new_room_pos
-					existing_rooms.push_back(room) # 성공적으로 생성된 방을 배열에 추가
+				if not room.has_overlapping():
 					generated_cnt += 1
 					room_generate_succeeded = true
 					print("방 생성 성공:", new_room_pos, room_size)
-
 					q.erase(data)
 					var passage_data = room.get_passage_data()
 					for d in passage_data:

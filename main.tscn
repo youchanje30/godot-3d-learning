@@ -2,7 +2,7 @@
 
 [ext_resource type="PackedScene" uid="uid://1k23twwn064h" path="res://3DMapProcedualGenerator/floor.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://de5o8i4ejv00y" path="res://actor.tscn" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://c06y4rng12jmk" path="res://node_3d.tscn" id="3_h2yge"]
+[ext_resource type="PackedScene" uid="uid://c06y4rng12jmk" path="res://3DMapProcedualGenerator/node_3d.tscn" id="3_h2yge"]
 
 [node name="Main" type="Node"]
 

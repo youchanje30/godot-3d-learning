@@ -1,0 +1,19 @@
+[gd_scene load_steps=3 format=3 uid="uid://bstnfxn3jpogy"]
+
+[ext_resource type="Script" uid="uid://c6m5qmtj5k2wm" path="res://3DMapProcedualGenerator/node_3d.gd" id="1_iknme"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_fuu13"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_iknme")
+
+[node name="Area3D" type="Area3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.539188, -0.651589)
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D"]
+shape = SubResource("BoxShape3D_fuu13")
+
+[node name="Area3D2" type="Area3D" parent="."]
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Area3D2"]
+shape = SubResource("BoxShape3D_fuu13")

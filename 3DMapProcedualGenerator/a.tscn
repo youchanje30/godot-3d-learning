@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=3 uid="uid://dehrcgylq4mbu"]
+
+[ext_resource type="PackedScene" uid="uid://bstnfxn3jpogy" path="res://3DMapProcedualGenerator/test_overlapping.tscn" id="1_nyjkp"]
+
+[node name="A" type="Node3D"]
+
+[node name="Node3D" parent="." instance=ExtResource("1_nyjkp")]
+transform = Transform3D(0.861097, 0, -0.50844, 0, 1, 0, 0.50844, 0, 0.861097, 0, 0.902241, -0.101604)
+
+[node name="Node3D2" parent="." instance=ExtResource("1_nyjkp")]
