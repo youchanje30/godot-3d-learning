@@ -7,7 +7,7 @@ var q = []
 var existing_rooms: Array[StaticBody3D] = []
 
 func _init() -> void:
-	q.push_back([Vector3.ZERO, Vector3(0, 0, 1)])
+	q.push_back([Vector3.ZERO, Vector3(0, 1, 0)])
 
 func _ready() -> void:
 	GenerateMaps()
@@ -56,11 +56,11 @@ func can_place_room(position: Vector3, size: Vector3) -> bool:
 	query_params.shape = box_shape
 	query_params.transform = Transform3D(Basis(), position)
 	query_params.collision_mask = 1 # 기본 충돌 레이어라고 가정
-	#query_params.exclude = existing_rooms
+	query_params.exclude = existing_rooms
 
 	var space_state = get_world_3d().get_direct_space_state()
 	var results = space_state.intersect_shape(query_params)
-
+	
 	return results.is_empty()
 
 func GenerateMaps() -> void:
@@ -75,36 +75,33 @@ func GenerateMaps() -> void:
 			var try_room_cnt = 0
 			while try_room_cnt < 5 and not room_generate_succeeded:
 				var room = GetRandomFromPath(room_path)
-				if not room:
-					break
+				if not room: break
 
 				var room_size = room.get_size()
 				var new_room_pos = attach_pos + attach_dir * (room_size / 2.0)
 
 				if can_place_room(new_room_pos, room_size):
-					room.position = new_room_pos
 					add_child(room)
-					q.erase(data)
-					
-					#existing_rooms.append(room)
+					room.position = new_room_pos
+					existing_rooms.push_back(room) # 성공적으로 생성된 방을 배열에 추가
 					generated_cnt += 1
 					room_generate_succeeded = true
 					print("방 생성 성공:", new_room_pos, room_size)
 
-					var new_q_pos = new_room_pos + attach_dir * (room_size / 2.0)
-					var new_q_dir = attach_dir.rotated(Vector3.UP, PI/2 * round(randf_range(-1.0, 1.0) * 2)) # 직각 방향으로 확장 시도 (랜덤 회전)
-					if q.size() < generate_rooms_cnt * 2: # q 배열 크기 제한 (선택 사항)
-						q.append([new_q_pos, new_q_dir])
-
+					q.erase(data)
+					var passage_data = room.get_passage_data()
+					for d in passage_data:
+						q.append(d)
 				else:
 					room.queue_free()
-					print("방 생성 실패 (겹침):", new_room_pos, room_size)
+					print("방 생성 실패 (겹침):", attach_pos, new_room_pos, room_size)
 
 				try_room_cnt += 1
 			try_pos_cnt += 1
 
 		if not room_generate_succeeded:
 			print("위치 시도 3번, 방 시도 5번 모두 실패.")
+			break
 
 func sign(n: float) -> float:
 	if n > 0:

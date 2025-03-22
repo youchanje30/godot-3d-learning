@@ -1,7 +1,8 @@
-[gd_scene load_steps=6 format=3 uid="uid://dsy48o7qd4va2"]
+[gd_scene load_steps=7 format=3 uid="uid://dsy48o7qd4va2"]
 
 [ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_48yg4"]
 [ext_resource type="Shape3D" uid="uid://dqfr4mwl6ta6k" path="res://3DMapProcedualGenerator/floor.tres" id="2_ln4w5"]
+[ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="3_ln4w5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ndbo8"]
 size = Vector3(2.2, 0.2, 2.2)
@@ -12,10 +13,10 @@ size = Vector3(0.2, 1, 0.7)
 [sub_resource type="BoxShape3D" id="BoxShape3D_ndbo8"]
 size = Vector3(0.2, 1, 0.7)
 
-[node name="Base Room" type="Node3D" node_paths=PackedStringArray("passage")]
+[node name="Base Room" type="Node3D" node_paths=PackedStringArray("passages")]
 script = ExtResource("1_48yg4")
 size = Vector3(2.2, 0.6, 2.2)
-passage = [NodePath("Passage/1"), NodePath("Passage/2"), NodePath("Passage/3"), NodePath("Passage/4")]
+passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2"), NodePath("Passage/3")]
 
 [node name="Obj" type="Node3D" parent="."]
 
@@ -126,14 +127,22 @@ debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Passage" type="Node3D" parent="."]
 
-[node name="1" type="Node3D" parent="Passage"]
+[node name="0" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
+script = ExtResource("3_ln4w5")
+direction = Vector3(0, 0.5, 1)
+
+[node name="1" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+script = ExtResource("3_ln4w5")
+direction = Vector3(1, 0.5, 0)
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
+script = ExtResource("3_ln4w5")
+direction = Vector3(0, 0.5, -1)
 
 [node name="3" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
-
-[node name="4" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, 0)
+script = ExtResource("3_ln4w5")
+direction = Vector3(-1, 0.5, 0)
