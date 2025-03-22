@@ -1,0 +1,29 @@
+[gd_scene load_steps=4 format=3 uid="uid://c73ma1oqv8x4p"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_48yg4"]
+albedo_color = Color(1, 0.185878, 0.312512, 1)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_ln4w5"]
+material = SubResource("StandardMaterial3D_48yg4")
+size = Vector2(0.1, 0.5)
+
+[sub_resource type="PlaneMesh" id="PlaneMesh_48yg4"]
+material = SubResource("StandardMaterial3D_48yg4")
+size = Vector2(0.1, 0.35)
+
+[node name="Arrow" type="Node3D"]
+
+[node name="Arrow" type="MeshInstance3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.15, 0.25)
+mesh = SubResource("PlaneMesh_ln4w5")
+skeleton = NodePath("../..")
+
+[node name="Arrow2" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, 0.707107, 0, 1, 0, -0.707107, 0, 0.707107, -0.125, 0.15, 0.35)
+mesh = SubResource("PlaneMesh_48yg4")
+skeleton = NodePath("../..")
+
+[node name="Arrow3" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.707107, 0, -0.707107, 0, 1, 0, 0.707107, 0, 0.707107, 0.125, 0.15, 0.35)
+mesh = SubResource("PlaneMesh_48yg4")
+skeleton = NodePath("../..")

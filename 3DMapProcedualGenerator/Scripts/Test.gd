@@ -29,13 +29,20 @@ func GenerateMaps() -> void:
 			var attach_dir = data[1]
 			var try_room_cnt = 0
 			while try_room_cnt < 10 and not room_generate_succeeded:
+
+
+
 				var room = GetRandomFromPath(room_path)
 				if not room: break
 
+				# 입구에 맞게 방을 회전한다
 				var room_size = room.get_size()
 				var new_room_pos = attach_pos + attach_dir * (room_size / 2.0)
 				add_child(room)
 				room.position = new_room_pos
+				var angle = attach_dir.x * 90 + (attach_dir.z-1) * 90
+				room.set_rotation_degrees(Vector3(0, angle, 0))
+				print(angle)
 
 				# 충돌 감지를 위해 조금 기다리기
 				await get_tree().create_timer(0.05).timeout

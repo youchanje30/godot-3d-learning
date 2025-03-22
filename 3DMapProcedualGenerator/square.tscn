@@ -1,8 +1,8 @@
 [gd_scene load_steps=8 format=3 uid="uid://d2pp5trw8nds1"]
 
-[ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_wx6du"]
-[ext_resource type="Shape3D" uid="uid://dqfr4mwl6ta6k" path="res://3DMapProcedualGenerator/floor.tres" id="2_t1pix"]
-[ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="3_02jhu"]
+[ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_18sy8"]
+[ext_resource type="Shape3D" uid="uid://dqfr4mwl6ta6k" path="res://3DMapProcedualGenerator/floor.tres" id="2_v864p"]
+[ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="3_hb3i5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_ndbo8"]
 size = Vector3(4.2, 0.1, 2.2)
@@ -17,7 +17,7 @@ size = Vector3(0.2, 1, 0.7)
 size = Vector3(2, 1, 1)
 
 [node name="Square Room" type="Node3D" node_paths=PackedStringArray("passages")]
-script = ExtResource("1_wx6du")
+script = ExtResource("1_18sy8")
 size = Vector3(2.2, 0.6, 2.2)
 passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2"), NodePath("Passage/3")]
 
@@ -31,7 +31,7 @@ mesh = SubResource("BoxMesh_ndbo8")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Floor"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
-shape = ExtResource("2_t1pix")
+shape = ExtResource("2_v864p")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Wall_0" type="StaticBody3D" parent="Obj"]
@@ -134,22 +134,22 @@ debug_color = Color(1, 1, 1, 0.42)
 
 [node name="0" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
-script = ExtResource("3_02jhu")
+script = ExtResource("3_hb3i5")
 direction = Vector3(0, 0, 1)
 
 [node name="1" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.1, 0, 0)
-script = ExtResource("3_02jhu")
+script = ExtResource("3_hb3i5")
 direction = Vector3(1, 0, 0)
 
 [node name="2" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
-script = ExtResource("3_02jhu")
+script = ExtResource("3_hb3i5")
 direction = Vector3(0, 0, -1)
 
 [node name="3" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -2.1, 0, 0)
-script = ExtResource("3_02jhu")
+script = ExtResource("3_hb3i5")
 direction = Vector3(-1, 0, 0)
 
 [node name="Room Surface" type="Node3D" parent="."]
