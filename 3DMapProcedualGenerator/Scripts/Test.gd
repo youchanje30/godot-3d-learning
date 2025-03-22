@@ -17,33 +17,18 @@ func GetRandomFromPath(path : String):
 	var data = load(path + random_resource).instantiate()
 	return data
 
-#func can_place_room(position: Vector3, size: Vector3) -> bool:
-	#var half_size = size / 2.0
-	#var aabb = AABB(position - half_size, size)
-	#var query_params = PhysicsShapeQueryParameters3D.new()
-	#var box_shape = BoxShape3D.new()
-	#box_shape.size = size
-	#query_params.shape = box_shape
-	#query_params.transform = Transform3D(Basis(), position)
-	#query_params.collision_mask = 1 # 기본 충돌 레이어라고 가정
-	#query_params.exclude = existing_rooms
-#
-	#var space_state = get_world_3d().get_direct_space_state()
-	#var results = space_state.intersect_shape(query_params)
-	#
-	#return results.is_empty()
-
 func GenerateMaps() -> void:
 	var generated_cnt = 0
 	while generated_cnt < generate_rooms_cnt:
+		await get_tree().create_timer(1).timeout
 		var room_generate_succeeded = false
 		var try_pos_cnt = 0
-		while try_pos_cnt < 3 and not room_generate_succeeded:
+		while try_pos_cnt < 10 and not room_generate_succeeded:
 			var data = q.pick_random()
 			var attach_pos = data[0]
 			var attach_dir = data[1]
 			var try_room_cnt = 0
-			while try_room_cnt < 5 and not room_generate_succeeded:
+			while try_room_cnt < 10 and not room_generate_succeeded:
 				var room = GetRandomFromPath(room_path)
 				if not room: break
 
@@ -51,6 +36,9 @@ func GenerateMaps() -> void:
 				var new_room_pos = attach_pos + attach_dir * (room_size / 2.0)
 				add_child(room)
 				room.position = new_room_pos
+
+				# 충돌 감지를 위해 조금 기다리기
+				await get_tree().create_timer(0.05).timeout
 
 				if not room.has_overlapping():
 					generated_cnt += 1
