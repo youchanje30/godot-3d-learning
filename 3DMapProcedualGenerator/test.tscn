@@ -4,6 +4,7 @@
 
 [node name="Test" type="Node3D"]
 script = ExtResource("1_eugc5")
+generate_rooms_cnt = 30
 
 [node name="Camera3D" type="Camera3D" parent="."]
 transform = Transform3D(0.129409, -0.242362, 0.961516, -0.224144, 0.937422, 0.266457, -0.965926, -0.25, 0.0669872, 17.25, 14.5, -0.25)

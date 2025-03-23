@@ -12,7 +12,8 @@ func get_passage_data():
 	for passage in passages:
 		var add = []
 		add.append(passage.global_position)
-		add.append(passage.get_direction())
+		#add.append(passage.get_direction())
+		add.append(passage.get_angle())
 		data.append(add)
 	return data
 

@@ -1,8 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://d4afltl2oy07b"]
+[gd_scene load_steps=3 format=3 uid="uid://d4afltl2oy07b"]
 
 [ext_resource type="PackedScene" uid="uid://1k23twwn064h" path="res://3DMapProcedualGenerator/floor.tscn" id="1_ig7tw"]
 [ext_resource type="PackedScene" uid="uid://de5o8i4ejv00y" path="res://actor.tscn" id="2_0xm2m"]
-[ext_resource type="PackedScene" uid="uid://c06y4rng12jmk" path="res://3DMapProcedualGenerator/node_3d.tscn" id="3_h2yge"]
 
 [node name="Main" type="Node"]
 
@@ -24,6 +23,3 @@ visible = false
 
 [node name="SpotLight3D" type="SpotLight3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.885527, 2.8894, 1.88561)
-
-[node name="Node3D" parent="." instance=ExtResource("3_h2yge")]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1, 0)

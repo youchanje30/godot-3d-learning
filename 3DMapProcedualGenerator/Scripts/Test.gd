@@ -3,10 +3,10 @@ extends Node3D
 
 @export var generate_rooms_cnt : int = 10
 @export var room_path : String = "res://3DMapProcedualGenerator/Rooms/"
-var q = []
+var q = [] # pos, angle
 
 func _init() -> void:
-	q.push_back([Vector3.ZERO, Vector3(0, 1, 0)])
+	q.push_back([Vector3.ZERO, 0])
 
 func _ready() -> void:
 	GenerateMaps()
@@ -20,13 +20,13 @@ func GetRandomFromPath(path : String):
 func GenerateMaps() -> void:
 	var generated_cnt = 0
 	while generated_cnt < generate_rooms_cnt:
-		await get_tree().create_timer(1).timeout
+		await get_tree().create_timer(.25).timeout
 		var room_generate_succeeded = false
 		var try_pos_cnt = 0
 		while try_pos_cnt < 10 and not room_generate_succeeded:
 			var data = q.pick_random()
 			var attach_pos = data[0]
-			var attach_dir = data[1]
+			var attach_angle = data[1]
 			var try_room_cnt = 0
 			while try_room_cnt < 10 and not room_generate_succeeded:
 
@@ -37,12 +37,13 @@ func GenerateMaps() -> void:
 
 				# 입구에 맞게 방을 회전한다
 				var room_size = room.get_size()
+				if attach_angle == 90 or attach_angle == -90:
+					room_size = Vector3(room_size.z, room_size.y, room_size.x)
+				var attach_dir = Vector3(int(sin(deg_to_rad(attach_angle))), 0, int(cos(deg_to_rad(attach_angle))))
 				var new_room_pos = attach_pos + attach_dir * (room_size / 2.0)
 				add_child(room)
-				room.position = new_room_pos
-				var angle = attach_dir.x * 90 + (attach_dir.z-1) * 90
-				room.set_rotation_degrees(Vector3(0, angle, 0))
-				print(angle)
+				room.global_position = new_room_pos
+				room.set_global_rotation_degrees(Vector3(0, attach_angle, 0))
 
 				# 충돌 감지를 위해 조금 기다리기
 				await get_tree().create_timer(0.05).timeout

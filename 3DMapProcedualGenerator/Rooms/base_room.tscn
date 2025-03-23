@@ -21,7 +21,7 @@ size = Vector3(2.2, 0.1, 2.2)
 [node name="Base Room" type="Node3D" node_paths=PackedStringArray("passages")]
 script = ExtResource("1_48yg4")
 size = Vector3(2.2, 0.6, 2.2)
-passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2"), NodePath("Passage/3")]
+passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2")]
 
 [node name="Obj" type="Node3D" parent="."]
 
@@ -153,16 +153,13 @@ direction = Vector3(0, 0, 1)
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.1, 0, 0)
 script = ExtResource("3_ln4w5")
 direction = Vector3(1, 0, 0)
+angle = 90
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, -1.1)
-script = ExtResource("3_ln4w5")
-direction = Vector3(0, 0, -1)
-
-[node name="3" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.1, 0, 0)
 script = ExtResource("3_ln4w5")
 direction = Vector3(-1, 0, 0)
+angle = -90
 
 [node name="Room Surface" type="Node3D" parent="."]
 transform = Transform3D(2, 0, 0, 0, 0.8, 0, 0, 0, 2, 0, 0.5, 0)
