@@ -2,7 +2,10 @@ extends Node3D
 
 @export var generate_rooms_cnt : int = 10
 var room_path : String = "res://3DMapProcedualGenerator/Rooms/"
+var wall_path = preload("res://3DMapProcedualGenerator/fit_wall.tscn")
+var door_path = preload("res://3DMapProcedualGenerator/door.tscn")
 var q = [] # pos, angle
+var used_q = []
 
 func _init() -> void:
 	q.push_back([Vector3.ZERO, 0])
@@ -13,10 +16,17 @@ func _ready() -> void:
 #region Generation Methods
 ### 배치가 불가능한 경우를 막기 위해 여러번 실행한다. 방 생성 개수를 맞추기 위함
 func GenerateMaps() -> void:
+	## 방 생성
 	for _i in generate_rooms_cnt:
 		await GenerationRoomCycle()
 		## 방 생성 확인을 위해 딜레이 추가
 		await get_tree().create_timer(0.25).timeout
+	
+	## 벽 생성
+	GenerationWall()
+	
+	## 문 생성
+	GenerationDoor()
 
 func GenerationRoomCycle() -> void:
 	for _try_pos in 10:
@@ -56,6 +66,27 @@ func IsSuccessPlaceRoom(room: Node3D, attach_pos: Vector3, attach_angle: float) 
 
 #endregion
 
+
+
+func GenerationWall():
+	for data in q:
+		var pos = data[0]
+		var angle = data[1]
+		var wall = wall_path.instantiate()
+		add_child(wall)
+		wall.global_position = pos
+		wall.set_global_rotation_degrees(Vector3(0, angle, 0))
+
+func GenerationDoor():
+	for data in used_q:
+		if randi_range(0, 5) > 1: continue
+		var pos = data[0]
+		var angle = data[1]
+		var door = door_path.instantiate()
+		add_child(door)
+		door.global_position = pos
+		door.set_global_rotation_degrees(Vector3(0, angle, 0))
+
 func GetRandomFromPath(path : String):
 	var resource_files = DirAccess.get_files_at(path)
 	var random_resource = resource_files[randi() % resource_files.size()]
@@ -72,5 +103,6 @@ func SelectNextGenerationData():
 func SuccessGenerationRoom(room: Node3D, data_to_remove: Array) -> void:
 	print("방 생성 성공:", room.global_position, room.get_size())
 	q.erase(data_to_remove)
+	used_q.push_back(data_to_remove)
 	for passage in room.get_passage_data():
 		q.append(passage)
