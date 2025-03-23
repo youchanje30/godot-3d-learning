@@ -5,10 +5,10 @@
 [ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="3_ln4w5"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2sogh"]
-size = Vector3(0.2, 1, 0.7)
+size = Vector3(0.2, 2, 0.7)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ndbo8"]
-size = Vector3(0.2, 1, 0.7)
+size = Vector3(0.2, 2, 0.7)
 
 [sub_resource type="BoxMesh" id="BoxMesh_ndbo8"]
 size = Vector3(2.2, 0.1, 2.2)
@@ -17,15 +17,17 @@ size = Vector3(2.2, 0.1, 2.2)
 size = Vector3(2.2, 0.1, 2.2)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ln4w5"]
+size = Vector3(1, 2.5, 1)
 
 [node name="Base Room" type="Node3D" node_paths=PackedStringArray("passages")]
 script = ExtResource("1_48yg4")
-size = Vector3(2.2, 0.6, 2.2)
+size = Vector3(2.2, 0, 2.2)
 passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2")]
 
 [node name="Obj" type="Node3D" parent="."]
 
 [node name="Corner1" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Wall_0" type="StaticBody3D" parent="Obj/Corner1"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 0, 1)
@@ -52,6 +54,7 @@ shape = SubResource("BoxShape3D_ndbo8")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Corner2" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Wall_0" type="StaticBody3D" parent="Obj/Corner2"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 0.5, 0, -1)
@@ -78,6 +81,7 @@ shape = SubResource("BoxShape3D_ndbo8")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Corner3" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Wall_0" type="StaticBody3D" parent="Obj/Corner3"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, -1)
@@ -104,6 +108,7 @@ shape = SubResource("BoxShape3D_ndbo8")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Corner4" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.5, 0)
 
 [node name="Wall_0" type="StaticBody3D" parent="Obj/Corner4"]
 transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -1, 0, 1)
@@ -169,4 +174,5 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room Surface/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
 shape = SubResource("BoxShape3D_ln4w5")

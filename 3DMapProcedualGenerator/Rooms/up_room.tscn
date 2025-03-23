@@ -39,7 +39,7 @@ size = Vector3(1, 6, 1)
 
 [node name="Up_Room" type="Node3D" node_paths=PackedStringArray("passages")]
 script = ExtResource("1_bmqhh")
-size = Vector3(2.2, 0.6, 2.2)
+size = Vector3(2.2, 0, 2.2)
 passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2")]
 
 [node name="Obj" type="Node3D" parent="."]
@@ -266,12 +266,12 @@ script = ExtResource("3_nl0hw")
 direction = Vector3(0, 0, 1)
 
 [node name="1" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, 1.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, 1.1)
 script = ExtResource("3_nl0hw")
 direction = Vector3(0, 0, 1)
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.85, -1.1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 2.75, -1.1)
 script = ExtResource("3_nl0hw")
 direction = Vector3(0, 0, -1)
 angle = 180
