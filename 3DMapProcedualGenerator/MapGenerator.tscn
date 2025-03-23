@@ -1,9 +1,9 @@
 [gd_scene load_steps=2 format=3 uid="uid://cimrc8bmu1s6j"]
 
-[ext_resource type="Script" uid="uid://ww1kdgtfcdf8" path="res://3DMapProcedualGenerator/Scripts/Test.gd" id="1_eugc5"]
+[ext_resource type="Script" uid="uid://c30euxg7upcpj" path="res://3DMapProcedualGenerator/Scripts/Generator.gd" id="1_2oknk"]
 
-[node name="Test" type="Node3D"]
-script = ExtResource("1_eugc5")
+[node name="Map Generator" type="Node3D"]
+script = ExtResource("1_2oknk")
 generate_rooms_cnt = 30
 
 [node name="Camera3D" type="Camera3D" parent="."]
