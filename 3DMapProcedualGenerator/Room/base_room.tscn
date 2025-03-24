@@ -1,0 +1,254 @@
+[gd_scene load_steps=9 format=3 uid="uid://cnfjhhybdhos8"]
+
+[ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_7ixl1"]
+[ext_resource type="PackedScene" uid="uid://c73ma1oqv8x4p" path="res://3DMapProcedualGenerator/Furiniture/arrow.tscn" id="2_qa7j1"]
+[ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="3_af20a"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2sogh"]
+size = Vector3(5, 10, 0.2)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ndbo8"]
+size = Vector3(5, 10, 0.2)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ndbo8"]
+size = Vector3(25, 0.1, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_48yg4"]
+size = Vector3(25, 0.1, 25)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ln4w5"]
+size = Vector3(24, 9.5, 24)
+
+[node name="Base Room" type="Node3D" node_paths=PackedStringArray("passages")]
+script = ExtResource("1_7ixl1")
+passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2")]
+
+[node name="Obj" type="Node3D" parent="."]
+
+[node name="Corner1" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 25)
+
+[node name="Wall_1" type="StaticBody3D" parent="Obj/Corner1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner1/Wall_1"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner1/Wall_1"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_2" type="StaticBody3D" parent="Obj/Corner1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner1/Wall_2"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner1/Wall_2"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_3" type="StaticBody3D" parent="Obj/Corner1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner1/Wall_3"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner1/Wall_3"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_4" type="StaticBody3D" parent="Obj/Corner1"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner1/Wall_4"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner1/Wall_4"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Corner2" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 0)
+
+[node name="Wall_1" type="StaticBody3D" parent="Obj/Corner2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner2/Wall_1"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner2/Wall_1"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_2" type="StaticBody3D" parent="Obj/Corner2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner2/Wall_2"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner2/Wall_2"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_3" type="StaticBody3D" parent="Obj/Corner2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner2/Wall_3"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner2/Wall_3"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_4" type="StaticBody3D" parent="Obj/Corner2"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner2/Wall_4"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner2/Wall_4"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Corner3" type="Node3D" parent="Obj"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -12.5, 0, 0)
+
+[node name="Wall_1" type="StaticBody3D" parent="Obj/Corner3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner3/Wall_1"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner3/Wall_1"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_2" type="StaticBody3D" parent="Obj/Corner3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner3/Wall_2"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner3/Wall_2"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_3" type="StaticBody3D" parent="Obj/Corner3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner3/Wall_3"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner3/Wall_3"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_4" type="StaticBody3D" parent="Obj/Corner3"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner3/Wall_4"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner3/Wall_4"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Corner4" type="Node3D" parent="Obj"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 12.5, 0, 0)
+
+[node name="Wall_1" type="StaticBody3D" parent="Obj/Corner4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 2.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner4/Wall_1"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner4/Wall_1"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_2" type="StaticBody3D" parent="Obj/Corner4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 7.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner4/Wall_2"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner4/Wall_2"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_3" type="StaticBody3D" parent="Obj/Corner4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 22.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner4/Wall_3"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner4/Wall_3"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_4" type="StaticBody3D" parent="Obj/Corner4"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 17.5, 5, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Corner4/Wall_4"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Corner4/Wall_4"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Floor" type="StaticBody3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 12.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_ndbo8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Floor"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_48yg4")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Top" type="StaticBody3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 10, 12.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+mesh = SubResource("BoxMesh_ndbo8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Top"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 0)
+shape = SubResource("BoxShape3D_48yg4")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Arrow" parent="Obj" instance=ExtResource("2_qa7j1")]
+
+[node name="Passage" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 25)
+script = ExtResource("3_af20a")
+direction = Vector3(0, 0, 1)
+
+[node name="1" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 12.5, 0, 12.5)
+script = ExtResource("3_af20a")
+direction = Vector3(1, 0, 0)
+angle = 90
+
+[node name="2" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -12.5, 0, 12.5)
+script = ExtResource("3_af20a")
+direction = Vector3(-1, 0, 0)
+angle = -90
+
+[node name="Room Surface" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 4.5, 12.5)
+
+[node name="Area3D" type="Area3D" parent="Room Surface"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room Surface/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
+shape = SubResource("BoxShape3D_ln4w5")

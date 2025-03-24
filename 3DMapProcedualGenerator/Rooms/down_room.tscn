@@ -1,7 +1,7 @@
 [gd_scene load_steps=15 format=3 uid="uid://eegaojcmu6ay"]
 
 [ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_x60bn"]
-[ext_resource type="PackedScene" uid="uid://c73ma1oqv8x4p" path="res://3DMapProcedualGenerator/Arrow/arrow.tscn" id="2_b66gr"]
+[ext_resource type="PackedScene" uid="uid://c73ma1oqv8x4p" path="res://3DMapProcedualGenerator/Furiniture/arrow.tscn" id="2_b66gr"]
 [ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="3_uav7t"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2sogh"]
