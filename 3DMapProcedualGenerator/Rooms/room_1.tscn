@@ -21,10 +21,10 @@ size = Vector3(1, 2.5, 2)
 
 [node name="Passage Room" type="Node3D" node_paths=PackedStringArray("passages")]
 script = ExtResource("1_pie1g")
-size = Vector3(2.2, 0, 4.2)
 passages = [NodePath("Passage/0")]
 
 [node name="Obj" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1)
 
 [node name="Arrow" parent="Obj" instance=ExtResource("1_sncsf")]
 
@@ -268,7 +268,7 @@ shape = SubResource("BoxShape3D_pie1g")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Room Surface" type="Node3D" parent="."]
-transform = Transform3D(2, 0, 0, 0, 0.8, 0, 0, 0, 2, 0, 0.5, 0)
+transform = Transform3D(2, 0, 0, 0, 0.8, 0, 0, 0, 2, 0, 0.5, 2.1)
 
 [node name="Area3D" type="Area3D" parent="Room Surface"]
 collision_layer = 2
@@ -279,6 +279,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.625, 0)
 shape = SubResource("BoxShape3D_sncsf")
 
 [node name="Passage" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1)
 
 [node name="0" type="Node3D" parent="Passage"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 2.1)
