@@ -8,6 +8,9 @@ var q = [] # pos, angle
 var used_q = []
 
 func _init() -> void:
+	## seed(1) 시드 설정으로 동일한 결과를 얻을 수 있다.
+	## randomize() 시드를 랜덤으로 초기화 한다.
+	seed(1)
 	q.push_back([Vector3.ZERO, 0])
 
 func _ready() -> void:
@@ -21,6 +24,7 @@ func GenerateMaps() -> void:
 		await GenerationRoomCycle()
 		## 방 생성 확인을 위해 딜레이 추가
 		await get_tree().create_timer(0.25).timeout
+	
 	
 	## 벽 생성
 	GenerationWall()
