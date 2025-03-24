@@ -3,5 +3,5 @@ extends Node3D
 
 
 func _ready() -> void:
-	await get_tree().create_timer(10).timeout
+	await get_tree().create_timer(30).timeout
 	navigation_region_3d.bake_navigation_mesh()

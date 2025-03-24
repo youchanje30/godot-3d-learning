@@ -1,0 +1,22 @@
+[gd_scene load_steps=4 format=3 uid="uid://1icsnvq4q0p5"]
+
+[ext_resource type="Script" uid="uid://b7p2dvj532uu3" path="res://3DMapProcedualGenerator/Scripts/navigation_ai.gd" id="1_kivm0"]
+
+[sub_resource type="CapsuleMesh" id="CapsuleMesh_wgkdf"]
+radius = 0.05
+height = 0.1
+
+[sub_resource type="ConvexPolygonShape3D" id="ConvexPolygonShape3D_kivm0"]
+points = PackedVector3Array(0.00952629, -0.0507936, -0.0047532, 0.00952629, 0.0507936, 0.0047532, -0.0489636, -0.00152412, 0.00917349, 0.0137377, -0.00763415, 0.0473356, 0.030385, 0.00151354, -0.0395043, -0.0257911, -0.00303146, -0.0424689, 0.0489636, 0.00152412, 0.00917349, -0.0302656, 0.037832, 0.0121081, -0.0302662, -0.0378327, 0.0121084, -0.0182327, 0.00911161, 0.0455866, -0.019616, 0.0316881, -0.0331912, 0.0166219, 0.0317473, 0.0347686, -0.0196178, -0.031691, -0.0331942, 0.0121218, -0.0363654, 0.0318185, 0.0347683, -0.031747, -0.0166217, 0.0347686, 0.0317473, -0.0166219, -0.0242279, -0.0242279, 0.0363418, 0.00913582, -0.0243558, -0.0426179, 0.00456244, 0.0228027, -0.0440909, -0.0455982, 0.00303797, -0.0197611, 0.0393912, -0.0257514, 0.0166582, 0.0394199, 0.0166704, 0.0257702, -0.0408908, -0.0242365, -0.0151455, -0.0158705, -0.0492026, 0.0047532, -0.0121084, 0.0378327, 0.0302662, 0.0472742, -0.00303824, -0.015239, 0.00476315, 0.0492026, -0.0158705, -0.0364601, 0.0319097, -0.0121565, -0.0392962, 0.0105794, 0.0287168, -0.0158705, 0.0492026, -0.0047532, 0.0364702, 0.0319007, 0.0121472, -0.00152557, -0.00918221, -0.0490101)
+
+[node name="NavigationAI" type="CharacterBody3D"]
+script = ExtResource("1_kivm0")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("CapsuleMesh_wgkdf")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("ConvexPolygonShape3D_kivm0")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
+debug_enabled = true

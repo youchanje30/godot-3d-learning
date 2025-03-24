@@ -10,7 +10,7 @@ var used_q = []
 func _init() -> void:
 	## seed(1) 시드 설정으로 동일한 결과를 얻을 수 있다.
 	## randomize() 시드를 랜덤으로 초기화 한다.
-	seed(1)
+	#seed(1)
 	q.push_back([Vector3.ZERO, 0])
 
 func _ready() -> void:
