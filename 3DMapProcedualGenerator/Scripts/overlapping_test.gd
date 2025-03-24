@@ -1,13 +1,7 @@
 extends Node3D
-@onready var base_room: Node3D = $"Base Room"
-@onready var base_room_2: Node3D = $"Base Room2"
-
+@onready var navigation_region_3d: NavigationRegion3D = $NavigationRegion3D
 
 
 func _ready() -> void:
-	await get_tree().create_timer(1).timeout
-	base_room.global_position = Vector3.ZERO
-	await get_tree().create_timer(0.01).timeout
-	print(base_room.has_overlapping())
-	await get_tree().create_timer(0.05).timeout
-	print(base_room.has_overlapping())
+	await get_tree().create_timer(10).timeout
+	navigation_region_3d.bake_navigation_mesh()

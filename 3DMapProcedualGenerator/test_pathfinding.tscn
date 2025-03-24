@@ -1,0 +1,13 @@
+[gd_scene load_steps=4 format=3 uid="uid://bstnfxn3jpogy"]
+
+[ext_resource type="Script" uid="uid://ct43xrwew7hp1" path="res://3DMapProcedualGenerator/Scripts/overlapping_test.gd" id="1_3iyom"]
+[ext_resource type="Script" uid="uid://c30euxg7upcpj" path="res://3DMapProcedualGenerator/Scripts/Generator.gd" id="2_uc630"]
+
+[sub_resource type="NavigationMesh" id="NavigationMesh_3iyom"]
+
+[node name="Node3D" type="Node3D"]
+script = ExtResource("1_3iyom")
+
+[node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
+navigation_mesh = SubResource("NavigationMesh_3iyom")
+script = ExtResource("2_uc630")
