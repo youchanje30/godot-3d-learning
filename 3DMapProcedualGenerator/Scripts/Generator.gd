@@ -1,7 +1,7 @@
 extends Node3D
 
 @export var generate_rooms_cnt : int = 10
-var room_path : String = "res://3DMapProcedualGenerator/Room/"
+var room_path : String = "res://3DMapProcedualGenerator/Rooms/"
 var wall_path = preload("res://3DMapProcedualGenerator/fit_wall.tscn")
 var door_path = preload("res://3DMapProcedualGenerator/door.tscn")
 var q = [] # pos, angle
@@ -10,7 +10,7 @@ var used_q = []
 func _init() -> void:
 	## seed(1) 시드 설정으로 동일한 결과를 얻을 수 있다.
 	## randomize() 시드를 랜덤으로 초기화 한다.
-	seed(1)
+	#seed(1)
 	q.push_back([Vector3.ZERO, 0])
 
 func _ready() -> void:

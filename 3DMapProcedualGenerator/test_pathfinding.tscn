@@ -5,9 +5,11 @@
 [ext_resource type="PackedScene" uid="uid://1icsnvq4q0p5" path="res://3DMapProcedualGenerator/AI/navigation_ai.tscn" id="3_3u0pd"]
 
 [sub_resource type="NavigationMesh" id="NavigationMesh_3iyom"]
+cell_size = 0.2
+cell_height = 0.2
 agent_height = 0.1
 agent_radius = 0.1
-region_min_size = 1.0
+region_min_size = 0.2
 
 [node name="Node3D" type="Node3D"]
 script = ExtResource("1_3iyom")
@@ -22,7 +24,6 @@ spot_range = 50.0
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_3iyom")
 script = ExtResource("2_uc630")
-generate_rooms_cnt = 25
 
 [node name="NavigationAI" parent="NavigationRegion3D" instance=ExtResource("3_3u0pd")]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.330187, 1.36571)

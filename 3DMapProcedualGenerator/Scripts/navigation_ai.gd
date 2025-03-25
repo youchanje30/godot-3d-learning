@@ -16,5 +16,5 @@ func _physics_process(delta: float) -> void:
 	var local_destination = destination - global_position
 	var direction = local_destination.normalized()
 	
-	velocity = direction * 0.2 
+	velocity = direction * 5
 	move_and_slide()
