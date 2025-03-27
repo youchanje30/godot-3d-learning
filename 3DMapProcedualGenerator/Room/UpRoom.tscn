@@ -36,7 +36,7 @@ size = Vector3(0.2, 4, 1.5)
 size = Vector3(0.2, 4, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ln4w5"]
-size = Vector3(4.6, 5.8, 4.6)
+size = Vector3(4.4, 12.5, 4.4)
 
 [node name="Base Room" type="Node3D" node_paths=PackedStringArray("passages")]
 script = ExtResource("1_h0jbk")
@@ -394,4 +394,5 @@ collision_layer = 2
 collision_mask = 2
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Room Surface/Area3D"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 3.4375, 0)
 shape = SubResource("BoxShape3D_ln4w5")
