@@ -30,7 +30,7 @@ script = ExtResource("1_7ixl1")
 passages = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2")]
 
 [node name="Obj" type="Node3D" parent="."]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
 
 [node name="Wall" type="Node3D" parent="Obj"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, 0)

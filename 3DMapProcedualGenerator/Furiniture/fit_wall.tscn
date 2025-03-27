@@ -1,0 +1,17 @@
+[gd_scene load_steps=3 format=3 uid="uid://bxsgcd2bswpby"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_gkkix"]
+size = Vector3(0.2, 2, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_5qdvr"]
+size = Vector3(0.2, 2, 1.5)
+
+[node name="Fit Wall" type="StaticBody3D"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 0, 0)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+mesh = SubResource("BoxMesh_gkkix")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="."]
+shape = SubResource("BoxShape3D_5qdvr")
+debug_color = Color(1, 1, 1, 0.42)
