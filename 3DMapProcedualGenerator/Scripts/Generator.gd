@@ -2,7 +2,7 @@ extends Node3D
 
 @export var generate_rooms_cnt : int = 10
 var room_path : String = "res://3DMapProcedualGenerator/Room/"
-var wall_path = preload("res://3DMapProcedualGenerator/fit_wall.tscn")
+var wall_path = preload("res://3DMapProcedualGenerator/Furiniture/fit_wall.tscn")
 var door_path = preload("res://3DMapProcedualGenerator/door.tscn")
 var q = [] # pos, angle
 var used_q = []
