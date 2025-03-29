@@ -78,7 +78,9 @@ func GenerationWall():
 		var angle = data[1]
 		var wall = wall_path.instantiate()
 		add_child(wall)
+		# attach 코드를 추가해서 어딘가로 바로 붙이고 싶다
 		wall.global_position = pos
+		
 		wall.set_global_rotation_degrees(Vector3(0, angle, 0))
 
 func GenerationDoor():

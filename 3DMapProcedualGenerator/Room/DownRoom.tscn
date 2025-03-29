@@ -1,8 +1,7 @@
-[gd_scene load_steps=16 format=3 uid="uid://ipx7kbyfgnpg"]
+[gd_scene load_steps=19 format=3 uid="uid://ipx7kbyfgnpg"]
 
 [ext_resource type="Script" uid="uid://bkqwuuds7vmie" path="res://3DMapProcedualGenerator/Scripts/RoomData.gd" id="1_wg88b"]
 [ext_resource type="PackedScene" uid="uid://c73ma1oqv8x4p" path="res://3DMapProcedualGenerator/Furiniture/arrow.tscn" id="2_y83fm"]
-[ext_resource type="PackedScene" uid="uid://bxsgcd2bswpby" path="res://3DMapProcedualGenerator/Furiniture/fit_wall.tscn" id="3_qs25d"]
 [ext_resource type="Script" uid="uid://ceyvd4hgtu2up" path="res://3DMapProcedualGenerator/Scripts/Passage.gd" id="4_y8rw2"]
 
 [sub_resource type="BoxMesh" id="BoxMesh_2sogh"]
@@ -30,9 +29,21 @@ size = Vector3(11, 0.1, 2.5)
 size = Vector3(11, 0.1, 2.5)
 
 [sub_resource type="BoxMesh" id="BoxMesh_f1h6l"]
-size = Vector3(0.2, 4, 1.5)
+size = Vector3(0.2, 6, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_f1h6l"]
+size = Vector3(0.2, 6, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_3y8hn"]
+size = Vector3(0.2, 4, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_wg88b"]
+size = Vector3(0.2, 4, 1.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_wg88b"]
+size = Vector3(0.2, 4, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_y83fm"]
 size = Vector3(0.2, 4, 1.5)
 
 [sub_resource type="BoxShape3D" id="BoxShape3D_ln4w5"]
@@ -271,7 +282,7 @@ transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0)
 [node name="DoorUp" type="Node3D" parent="Obj"]
 
 [node name="Wall_1" type="StaticBody3D" parent="Obj/DoorUp"]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 4, 8.5)
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 3, 8.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_1"]
 mesh = SubResource("BoxMesh_f1h6l")
@@ -284,37 +295,37 @@ debug_color = Color(1, 1, 1, 0.42)
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 4, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_2"]
-mesh = SubResource("BoxMesh_f1h6l")
+mesh = SubResource("BoxMesh_3y8hn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_2"]
-shape = SubResource("BoxShape3D_f1h6l")
+shape = SubResource("BoxShape3D_wg88b")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Wall_3" type="StaticBody3D" parent="Obj/DoorUp"]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 4.75, 4, 3.75)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_3"]
-mesh = SubResource("BoxMesh_f1h6l")
+mesh = SubResource("BoxMesh_3y8hn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_3"]
-shape = SubResource("BoxShape3D_f1h6l")
+shape = SubResource("BoxShape3D_wg88b")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Wall_4" type="StaticBody3D" parent="Obj/DoorUp"]
 transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -4.75, 4, 3.75)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_4"]
-mesh = SubResource("BoxMesh_f1h6l")
+mesh = SubResource("BoxMesh_3y8hn")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_4"]
-shape = SubResource("BoxShape3D_f1h6l")
+shape = SubResource("BoxShape3D_wg88b")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="DoorUp2" type="Node3D" parent="Obj"]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 5.98, 0)
 
 [node name="Wall_1" type="StaticBody3D" parent="Obj/DoorUp2"]
-transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 4, 8.5)
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 3, 8.5)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp2/Wall_1"]
 mesh = SubResource("BoxMesh_f1h6l")
@@ -327,14 +338,14 @@ debug_color = Color(1, 1, 1, 0.42)
 transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 4, -1)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp2/Wall_2"]
-mesh = SubResource("BoxMesh_f1h6l")
+mesh = SubResource("BoxMesh_wg88b")
 
 [node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp2/Wall_2"]
-shape = SubResource("BoxShape3D_f1h6l")
+shape = SubResource("BoxShape3D_y83fm")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Wall_3" type="StaticBody3D" parent="Obj/DoorUp2"]
-transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 4.75, 4, 3.75)
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 4.75, 3, 3.75)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp2/Wall_3"]
 mesh = SubResource("BoxMesh_f1h6l")
@@ -344,7 +355,7 @@ shape = SubResource("BoxShape3D_f1h6l")
 debug_color = Color(1, 1, 1, 0.42)
 
 [node name="Wall_4" type="StaticBody3D" parent="Obj/DoorUp2"]
-transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -4.75, 4, 3.75)
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -4.75, 3, 3.75)
 
 [node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp2/Wall_4"]
 mesh = SubResource("BoxMesh_f1h6l")
@@ -353,37 +364,23 @@ mesh = SubResource("BoxMesh_f1h6l")
 shape = SubResource("BoxShape3D_f1h6l")
 debug_color = Color(1, 1, 1, 0.42)
 
-[node name="FitWalls" type="Node3D" parent="Obj"]
-
-[node name="Fit Wall" parent="Obj/FitWalls" instance=ExtResource("3_qs25d")]
-transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, 0, 1, 8.5)
-
-[node name="Fit Wall4" parent="Obj/FitWalls" instance=ExtResource("3_qs25d")]
-transform = Transform3D(7.54979e-08, 0, 1, 0, 1, 0, -1, 0, 7.54979e-08, 0, 7, 8.5)
-
-[node name="Fit Wall2" parent="Obj/FitWalls" instance=ExtResource("3_qs25d")]
-transform = Transform3D(1, 0, -1.74845e-07, 0, 1, 0, 1.74845e-07, 0, 1, 4.75, 1, 3.75)
-
-[node name="Fit Wall3" parent="Obj/FitWalls" instance=ExtResource("3_qs25d")]
-transform = Transform3D(1, 0, -1.74845e-07, 0, 1, 0, 1.74845e-07, 0, 1, -4.75, 1, 3.75)
-
 [node name="Passage" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -6, 0)
 
 [node name="0" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 3.7998e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0.1)
 script = ExtResource("4_y8rw2")
 direction = Vector3(0, 0, 1)
 angle = 180
 
 [node name="1" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85, 6, 4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0, 4.75)
 script = ExtResource("4_y8rw2")
 direction = Vector3(1, 0, 0)
 angle = 90
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.85, 6, 4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 0, 4.75)
 script = ExtResource("4_y8rw2")
 direction = Vector3(-1, 0, 0)
 angle = -90
