@@ -299,13 +299,13 @@ script = ExtResource("3_538me")
 direction = Vector3(0, 0, 1)
 
 [node name="1" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 0, 2)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 2.05)
 script = ExtResource("3_538me")
 direction = Vector3(1, 0, 0)
 angle = 90
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.7, 0, 7.7)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.8, 0, 7.65)
 script = ExtResource("3_538me")
 direction = Vector3(1, 0, 0)
 angle = 90

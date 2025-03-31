@@ -203,7 +203,7 @@ debug_color = Color(1, 1, 1, 0.42)
 [node name="Passage" type="Node3D" parent="."]
 
 [node name="0" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 14)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 10, 0, 13.95)
 script = ExtResource("3_bf1y4")
 direction = Vector3(-1, 0, 0)
 angle = 90

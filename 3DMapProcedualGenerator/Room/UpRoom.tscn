@@ -372,19 +372,19 @@ debug_color = Color(1, 1, 1, 0.42)
 [node name="Passage" type="Node3D" parent="."]
 
 [node name="0" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 3.7998e-07)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6, 0.0500004)
 script = ExtResource("3_gkkix")
 direction = Vector3(0, 0, 1)
 angle = 180
 
 [node name="1" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.85, 6, 4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 6, 4.85)
 script = ExtResource("3_gkkix")
 direction = Vector3(1, 0, 0)
 angle = 90
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.85, 6, 4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 6, 4.85)
 script = ExtResource("3_gkkix")
 direction = Vector3(-1, 0, 0)
 angle = -90

@@ -374,13 +374,13 @@ direction = Vector3(0, 0, 1)
 angle = 180
 
 [node name="1" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0, 4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0, 4.85)
 script = ExtResource("4_y8rw2")
 direction = Vector3(1, 0, 0)
 angle = 90
 
 [node name="2" type="Node3D" parent="Passage"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 0, 4.75)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 0, 4.85)
 script = ExtResource("4_y8rw2")
 direction = Vector3(-1, 0, 0)
 angle = -90
