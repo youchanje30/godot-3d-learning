@@ -6,7 +6,7 @@ const JUMP_VELOCITY = 4.5
 
 	
 @onready var neck: Node3D = $Neck
-@onready var camera: Node3D = $Neck/Camera3D
+@onready var camera: Node3D = $"Neck/Light Arm"
 
 
 func _unhandled_input(event: InputEvent) -> void:

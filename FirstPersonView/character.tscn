@@ -20,10 +20,11 @@ shape = SubResource("ConvexPolygonShape3D_bbakb")
 [node name="Neck" type="Node3D" parent="."]
 transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.45, 0)
 
-[node name="Camera3D" type="Camera3D" parent="Neck"]
-
 [node name="Light Arm" type="Node3D" parent="Neck"]
-transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0.2, -0.2, 0)
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.2, 0)
+
+[node name="Camera3D" type="Camera3D" parent="Neck/Light Arm"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.2, 0)
 
 [node name="SpotLight3D" type="SpotLight3D" parent="Neck/Light Arm"]
 spot_range = 10.0
