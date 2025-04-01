@@ -1,6 +1,7 @@
-[gd_scene load_steps=5 format=3 uid="uid://bstnfxn3jpogy"]
+[gd_scene load_steps=6 format=3 uid="uid://bstnfxn3jpogy"]
 
 [ext_resource type="Script" uid="uid://ct43xrwew7hp1" path="res://3DMapProcedualGenerator/Scripts/overlapping_test.gd" id="1_3iyom"]
+[ext_resource type="PackedScene" uid="uid://14683mggjlc1" path="res://FirstPersonView/character.tscn" id="2_uc5yn"]
 [ext_resource type="Script" uid="uid://c30euxg7upcpj" path="res://3DMapProcedualGenerator/Scripts/Generator.gd" id="2_uc630"]
 [ext_resource type="PackedScene" uid="uid://1icsnvq4q0p5" path="res://3DMapProcedualGenerator/AI/navigation_ai.tscn" id="3_3u0pd"]
 
@@ -17,6 +18,9 @@ layers = 3
 light_color = Color(0.690141, 0.775887, 0.479632, 1)
 light_energy = 5.525
 spot_range = 50.0
+
+[node name="CharacterBody3D" parent="." instance=ExtResource("2_uc5yn")]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.548, 1.12546)
 
 [node name="NavigationRegion3D" type="NavigationRegion3D" parent="."]
 navigation_mesh = SubResource("NavigationMesh_3iyom")
