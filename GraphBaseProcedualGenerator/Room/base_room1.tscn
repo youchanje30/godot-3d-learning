@@ -1,0 +1,211 @@
+[gd_scene load_steps=11 format=3 uid="uid://d4humvmyu67dn"]
+
+[ext_resource type="Script" uid="uid://t8ws4axewv57" path="res://GraphBaseProcedualGenerator/RoomTemplate.gd" id="1_70pl6"]
+[ext_resource type="PackedScene" uid="uid://c73ma1oqv8x4p" path="res://3DMapProcedualGenerator/Furiniture/arrow.tscn" id="2_qnd2j"]
+[ext_resource type="Script" uid="uid://rysyaw4inrca" path="res://GraphBaseProcedualGenerator/Door.gd" id="3_qklmc"]
+
+[sub_resource type="BoxMesh" id="BoxMesh_2sogh"]
+size = Vector3(0.2, 6, 4)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ndbo8"]
+size = Vector3(0.2, 6, 4)
+
+[sub_resource type="BoxMesh" id="BoxMesh_ndbo8"]
+size = Vector3(9.5, 0.1, 9.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_48yg4"]
+size = Vector3(9.5, 0.1, 9.5)
+
+[sub_resource type="BoxMesh" id="BoxMesh_f1h6l"]
+size = Vector3(0.2, 4, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_f1h6l"]
+size = Vector3(0.2, 4, 1.5)
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_ln4w5"]
+size = Vector3(4.6, 5.8, 4.6)
+
+[node name="Base Room" type="Node3D" node_paths=PackedStringArray("doors")]
+script = ExtResource("1_70pl6")
+doors = [NodePath("Passage/0"), NodePath("Passage/1"), NodePath("Passage/2")]
+
+[node name="Obj" type="Node3D" parent="."]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1.1)
+
+[node name="Wall" type="Node3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -0.25, 0.5, 0)
+
+[node name="Wall_7" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, -2.5, 2.5, 8.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_7"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_7")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_7"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_6" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(1, 0, -1.74845e-07, 0, 1, 0, 1.74845e-07, 0, 1, -4.5, 2.5, 6.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_6"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_6")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_6"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_5" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(1, 0, -1.74845e-07, 0, 1, 0, 1.74845e-07, 0, 1, -4.5, 2.5, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_5"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_5")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_5"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_4" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, -2.5, 2.5, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_4"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_4")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_4"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_3" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(-4.37114e-08, 0, 1, 0, 1, 0, -1, 0, -4.37114e-08, 3, 2.5, 8.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_3"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_3")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_3"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_2" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(-1, 0, -8.74226e-08, 0, 1, 0, 8.74226e-08, 0, -1, 5, 2.5, 6.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_2"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_2")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_2"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_1" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(-1, 0, -8.74226e-08, 0, 1, 0, 8.74226e-08, 0, -1, 5, 2.5, 1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_1"]
+mesh = SubResource("BoxMesh_2sogh")
+skeleton = NodePath("../../Wall_1")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_1"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_0" type="StaticBody3D" parent="Obj/Wall"]
+transform = Transform3D(-4.37114e-08, 0, -1, 0, 1, 0, 1, 0, -4.37114e-08, 3, 2.5, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Wall/Wall_0"]
+mesh = SubResource("BoxMesh_2sogh")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Wall/Wall_0"]
+shape = SubResource("BoxShape3D_ndbo8")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Floor" type="StaticBody3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0.05, 3.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Floor"]
+mesh = SubResource("BoxMesh_ndbo8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Floor"]
+shape = SubResource("BoxShape3D_48yg4")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Top" type="StaticBody3D" parent="Obj"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 6.05, 3.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/Top"]
+mesh = SubResource("BoxMesh_ndbo8")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/Top"]
+shape = SubResource("BoxShape3D_48yg4")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Arrow" parent="Obj" instance=ExtResource("2_qnd2j")]
+
+[node name="DoorUp" type="Node3D" parent="Obj"]
+
+[node name="Wall_1" type="StaticBody3D" parent="Obj/DoorUp"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 4, 8.5)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_1"]
+mesh = SubResource("BoxMesh_f1h6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_1"]
+shape = SubResource("BoxShape3D_f1h6l")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_2" type="StaticBody3D" parent="Obj/DoorUp"]
+transform = Transform3D(1.31134e-07, 0, 1, 0, 1, 0, -1, 0, 1.31134e-07, 0, 4, -1)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_2"]
+mesh = SubResource("BoxMesh_f1h6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_2"]
+shape = SubResource("BoxShape3D_f1h6l")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_3" type="StaticBody3D" parent="Obj/DoorUp"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, 4.75, 4, 3.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_3"]
+mesh = SubResource("BoxMesh_f1h6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_3"]
+shape = SubResource("BoxShape3D_f1h6l")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Wall_4" type="StaticBody3D" parent="Obj/DoorUp"]
+transform = Transform3D(1, 0, -1.74846e-07, 0, 1, 0, 1.74846e-07, 0, 1, -4.75, 4, 3.75)
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="Obj/DoorUp/Wall_4"]
+mesh = SubResource("BoxMesh_f1h6l")
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Obj/DoorUp/Wall_4"]
+shape = SubResource("BoxShape3D_f1h6l")
+debug_color = Color(1, 1, 1, 0.42)
+
+[node name="Passage" type="Node3D" parent="."]
+
+[node name="0" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 9.6)
+script = ExtResource("3_qklmc")
+
+[node name="1" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 4.75, 0, 4.85)
+script = ExtResource("3_qklmc")
+
+[node name="2" type="Node3D" parent="Passage"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -4.75, 0, 4.85)
+script = ExtResource("3_qklmc")
+
+[node name="Room Surface" type="Node3D" parent="."]
+transform = Transform3D(2, 0, 0, 0, 0.8, 0, 0, 0, 2, 0, 3, 4.75)
+
+[node name="Area3D" type="Area3D" parent="Room Surface"]
+collision_layer = 2
+collision_mask = 2
+
+[node name="CollisionShape3D" type="CollisionShape3D" parent="Room Surface/Area3D"]
+shape = SubResource("BoxShape3D_ln4w5")

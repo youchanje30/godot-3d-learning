@@ -1,0 +1,17 @@
+[gd_scene load_steps=4 format=3 uid="uid://dew1ifs3cous5"]
+
+[ext_resource type="Script" uid="uid://rysyaw4inrca" path="res://GraphBaseProcedualGenerator/Door.gd" id="1_od6g2"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_fg6sd"]
+albedo_color = Color(0.75705, 0.756994, 1.54018e-06, 1)
+
+[sub_resource type="BoxMesh" id="BoxMesh_y7jya"]
+material = SubResource("StandardMaterial3D_fg6sd")
+size = Vector3(0.2, 3, 0.8)
+
+[node name="Fit" type="StaticBody3D"]
+script = ExtResource("1_od6g2")
+
+[node name="MeshInstance3D" type="MeshInstance3D" parent="."]
+transform = Transform3D(0.766044, 0, -0.642788, 0, 1, 0, 0.642788, 0, 0.766044, 0, 1.5, 0.25)
+mesh = SubResource("BoxMesh_y7jya")
