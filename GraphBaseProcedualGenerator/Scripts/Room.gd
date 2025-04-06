@@ -6,15 +6,10 @@ class_name Room
 # RoomData 인스턴스
 @export var room_data: RoomData
 
+var off_set_position = Vector3i.ZERO
+var rotate_time = 0
 # 방의 색상
 var room_color: Color
-# 생성자
-#func _init(room_data: RoomData) -> void:
-	#self.room_data = room_data
-
-# 방의 위치들 설정
-func set_positions(new_positions: Array[Vector3i]) -> void:
-	room_data.set_positions(new_positions)
 
 # 방의 위치들 가져오기
 func get_positions() -> Array[Vector3i]:
@@ -46,6 +41,11 @@ func display_room() -> void:
 		var cube = create_cube(Vector3(position.x, position.y, position.z))
 		add_child(cube)
 
+func display_room_position(positions : Array[Vector3i]) -> void:
+	for pos in positions:
+		var cube = create_cube(pos)
+		add_child(cube)
+
 # 랜덤 색상 생성 함수
 func generate_random_color() -> Color:
 	return Color(randf(), randf(), randf())
@@ -63,4 +63,5 @@ func create_cube(position: Vector3):
 
 func _ready() -> void:
 	set_room_color(generate_random_color())
-	display_room()
+	
+	#display_room()

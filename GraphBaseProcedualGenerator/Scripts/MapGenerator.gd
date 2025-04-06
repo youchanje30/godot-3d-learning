@@ -51,6 +51,12 @@ func connect_or_block_doors(room: Room) -> void:
 			#add_child(wall)
 
 
+func GetRandomFromPath(path : String):
+	var resource_files = DirAccess.get_files_at(path)
+	var random_resource = resource_files[randi() % resource_files.size()]
+	var data = load(path + random_resource).instantiate()
+	return data
+
 # 방을 추가할 수 있는지 확인하는 함수
 func can_place_room(room: Room, position: Vector3i) -> bool:
 	for pos in room.get_positions():
@@ -58,65 +64,60 @@ func can_place_room(room: Room, position: Vector3i) -> bool:
 			return false
 	return true
 
-# 문을 통해 방을 추가하는 함수
-func try_add_room_at_door(room: Room, door_position: Vector3i, max_room_attempts: int, max_door_attempts: int) -> bool:
-	for i in range(max_door_attempts):
-		var off_set = grid_data.get_next_room_position(room.global_transform.origin, door_position)
-		
-		for ii in range(max_room_attempts):
-			var random_room_scene = load_random_room()
-			var new_room_instance = random_room_scene.instantiate()
-			add_child(new_room_instance)
-			var pos = new_room_instance.get_positions()
-			pos = grid_data.rotate_vectors(pos, get_rotate(door_position))
-			var total_pos = []
-			for vec in pos: total_pos.push_back(vec + off_set)
-			if not grid_data.can_place_blocks(total_pos): continue
-			for vec in total_pos: grid_data.fill_cell(vec, new_room_instance)
-			for dic in new_room_instance.get_doors():
-				grid_data.add_special_cell(dic.key, dic.value)
-			
-	return false
+## 문을 통해 방을 추가하는 함수
+#func try_add_room_at_door(room: Room, door_position: Vector3i, max_room_attempts: int, max_door_attempts: int) -> bool:
+	#for i in range(max_door_attempts):
+		#var off_set = grid_data.get_next_room_position(room.global_transform.origin, door_position)
+		#
+		#for ii in range(max_room_attempts):
+			#var random_room_scene = load_random_room()
+			#var new_room_instance = random_room_scene.instantiate()
+			#add_child(new_room_instance)
+			#var pos = new_room_instance.get_positions()
+			#pos = grid_data.rotate_vectors(pos, get_rotate(door_position))
+			#var total_pos = []
+			#for vec in pos: total_pos.push_back(vec + off_set)
+			#if not grid_data.can_place_blocks(total_pos): continue
+			#for vec in total_pos: grid_data.fill_cell(vec, new_room_instance)
+			#for dic in new_room_instance.get_doors():
+				#grid_data.add_special_cell(dic.key, dic.value)
+			#
+	#return false
 
-func get_rotate(vec):
-	if vec == Vector3i(0, 0, 1): return 0
-	if vec == Vector3i(1, 0, 0): return 1
-	if vec == Vector3i(0, 0, -1): return 2
-	if vec == Vector3i(-1, 0, 0): return 3
-	return 0
-
-# 방의 문을 선택하고 방을 추가하는 함수
-func add_room_with_door_logic(room: Room) -> bool:
-	for door_position in room.get_doors().keys():
-		if try_add_room_at_door(room, door_position, 5, 3):
-			return true
-	return false
+## 방의 문을 선택하고 방을 추가하는 함수
+#func add_room_with_door_logic(room: Room) -> bool:
+	#for door_position in room.get_doors().keys():
+		#if try_add_room_at_door(room, door_position, 5, 3):
+			#return true
+	#return false
 
 # 맵 생성 함수
 func generate_map() -> void:
 	# 시작 방 추가
 	var start_room_instance = start_room.instantiate()
-	all_rooms.append(start_room_instance)
 	add_child(start_room_instance)
-	grid_data.fill_cell(Vector3i(start_room_instance.global_transform.origin), start_room_instance)
+	all_rooms.append(start_room_instance)
+	grid_data.try_place_room(start_room_instance, Vector3i.ZERO, Vector3i.BACK)
+
 
 	# 문을 통해 추가 가능한 방을 순차적으로 추가
 	var generated_rooms = 0
 	var max_rooms_to_generate = 30
-	
 	for i in range(max_rooms_to_generate):
-	#while generated_rooms < max_rooms_to_generate:
-		for room in all_rooms:
-			if add_room_with_door_logic(room):
-				generated_rooms += 1
-				if generated_rooms >= max_rooms_to_generate:
-					break
-			if generated_rooms >= max_rooms_to_generate:
-				break
-
-	# 방의 문을 연결하거나 벽으로 막음
-	for room in all_rooms:
-		connect_or_block_doors(room)
+		var select_room = all_rooms[randi_range(0, all_rooms.size()-1)]
+		
+		var doors = select_room.get_doors()
+		var k = doors.keys().pick_random()
+		var target_pos = grid_data.get_front_door(k + select_room.off_set_position, select_room.rotate_time, doors[k])
+		
+		for ii in range(5):
+			var room = GetRandomFromPath(path)
+			add_child(room)
+			if not grid_data.try_place_room(room, target_pos, grid_data.get_vector_from_angle(doors[k], select_room.rotate_time)):
+				room.queue_free()
+				continue
+			break
+	
 
 
 # 예제 사용법
