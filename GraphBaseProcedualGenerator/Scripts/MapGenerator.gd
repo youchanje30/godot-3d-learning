@@ -3,7 +3,7 @@ extends Node
 # 맵 생성기
 
 @export var grid_data: Node  # 이미 씬에 추가된 3DGridData 노드
-@export var path: String = "res://GraphBaseProcedualGenerator/Rooms"  # 방 파일들이 있는 폴더 경로
+@export var path: String = "res://GraphBaseProcedualGenerator/Rooms/"  # 방 파일들이 있는 폴더 경로
 
 var room_files: Array = []  # Room 파일 리스트
 
@@ -65,24 +65,6 @@ func can_place_room(room: Room, position: Vector3i) -> bool:
 	return true
 
 ## 문을 통해 방을 추가하는 함수
-#func try_add_room_at_door(room: Room, door_position: Vector3i, max_room_attempts: int, max_door_attempts: int) -> bool:
-	#for i in range(max_door_attempts):
-		#var off_set = grid_data.get_next_room_position(room.global_transform.origin, door_position)
-		#
-		#for ii in range(max_room_attempts):
-			#var random_room_scene = load_random_room()
-			#var new_room_instance = random_room_scene.instantiate()
-			#add_child(new_room_instance)
-			#var pos = new_room_instance.get_positions()
-			#pos = grid_data.rotate_vectors(pos, get_rotate(door_position))
-			#var total_pos = []
-			#for vec in pos: total_pos.push_back(vec + off_set)
-			#if not grid_data.can_place_blocks(total_pos): continue
-			#for vec in total_pos: grid_data.fill_cell(vec, new_room_instance)
-			#for dic in new_room_instance.get_doors():
-				#grid_data.add_special_cell(dic.key, dic.value)
-			#
-	#return false
 
 ## 방의 문을 선택하고 방을 추가하는 함수
 #func add_room_with_door_logic(room: Room) -> bool:

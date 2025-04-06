@@ -59,9 +59,12 @@ func create_cube(position: Vector3):
 	var cube = MeshInstance3D.new()
 	cube.mesh = BoxMesh.new()
 	cube.transform.origin = position
+	var material = StandardMaterial3D.new()
+	material.albedo_color = room_color
+	cube.set_surface_override_material(0, material)
 	return cube
 
 func _ready() -> void:
 	set_room_color(generate_random_color())
-	
+	#display_room_position(get_positions())
 	#display_room()
