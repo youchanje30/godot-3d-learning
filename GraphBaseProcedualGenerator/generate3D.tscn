@@ -1,0 +1,11 @@
+[gd_scene load_steps=3 format=3 uid="uid://vwni1d12gfhr"]
+
+[ext_resource type="Script" uid="uid://spcxdv5tkctg" path="res://GraphBaseProcedualGenerator/Scripts/MapGenerator.gd" id="1_1t80u"]
+[ext_resource type="Script" uid="uid://ceim4p0xye6sy" path="res://GraphBaseProcedualGenerator/Scripts/3DGridData.gd" id="2_yxiex"]
+
+[node name="Generator" type="Node3D" node_paths=PackedStringArray("grid_data")]
+script = ExtResource("1_1t80u")
+grid_data = NodePath("Grid")
+
+[node name="Grid" type="Node3D" parent="."]
+script = ExtResource("2_yxiex")
