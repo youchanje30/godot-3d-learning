@@ -43,8 +43,12 @@ func display_room() -> void:
 
 func display_room_position(positions : Array[Vector3i]) -> void:
 	for pos in positions:
-		var cube = create_cube(pos)
+		var cube = add_cube(pos)
 		add_child(cube)
+
+func display_door_position(pos : Vector3i) -> void:
+	var cube = add_door_pos(pos)
+	add_child(cube)
 
 # 랜덤 색상 생성 함수
 func generate_random_color() -> Color:
@@ -56,13 +60,24 @@ func set_room_color(color: Color) -> void:
 
 # 정육면체 MeshInstance를 생성하는 함수
 func create_cube(position: Vector3):
-	var cube = MeshInstance3D.new()
+	var cube : MeshInstance3D = MeshInstance3D.new()
 	cube.mesh = BoxMesh.new()
 	cube.transform.origin = position
 	var material = StandardMaterial3D.new()
 	material.albedo_color = room_color
 	cube.set_surface_override_material(0, material)
 	return cube
+
+func add_cube(pos : Vector3):
+	var cube = create_cube(pos)
+	cube.scale = Vector3.ONE * 0.75
+	return cube
+
+func add_door_pos(pos : Vector3):
+	var cube = create_cube(pos)
+	cube.scale = Vector3.ONE * 1
+	return cube
+	
 
 func _ready() -> void:
 	set_room_color(generate_random_color())

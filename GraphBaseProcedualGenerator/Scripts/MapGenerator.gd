@@ -116,3 +116,4 @@ func _ready() -> void:
 	randomize()
 	#load_room_files()
 	generate_map()
+	grid_data.check_doors()
