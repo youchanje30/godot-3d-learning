@@ -7,7 +7,7 @@ var filled_cells = {}
 
 # 특수 셀을 위한 Dictionary
 # 키: 벡터 좌표를 문자열로 변환 "x,y,z"
-# 값: 방향 정보 (문 위치)
+# 값: 바라보는 곳의 좌표?
 var special_cells = {}
 
 # 벡터를 딕셔너리 키로 변환
@@ -63,7 +63,6 @@ func can_place_blocks(block_positions: Array[Vector3i]) -> bool:
 	return true
 
 
-
 func get_angle_from_direction(dir : Vector3i)->int:
 	if dir == Vector3i.BACK: return 0
 	if dir == Vector3i.RIGHT: return 1
@@ -80,10 +79,13 @@ func try_place_room(room : Room, target : Vector3i, dir_angle : int)->bool:
 	for k in doors:
 		var pivot_position = k
 		var angle = (get_angle_from_direction(doors[k]) - dir_angle + 4) % 4
+		#print(angle)
 		var positions = room.get_positions()
 		var rotated_positions = rotate_vectors(positions, angle)
 		var moved_pivot_position = get_vector_from_angle(pivot_position, angle)
-		var moved_positions = move_vectors(rotated_positions, target-moved_pivot_position)
+		
+		var need_move = target-moved_pivot_position
+		var moved_positions = move_vectors(rotated_positions, need_move)
 		
 		var can = true
 		for pos in moved_positions:
@@ -93,9 +95,15 @@ func try_place_room(room : Room, target : Vector3i, dir_angle : int)->bool:
 		
 		if not can: continue
 		for pos in moved_positions: fill_cell(pos, room)
+		for ke in doors:
+			var cur_pos = get_vector_from_angle(ke, angle) + need_move
+			var that_pos = cur_pos + get_normalized_vec_from_angle((angle + get_angle_from_direction(doors[ke])) % 4)
+			add_special_cell(cur_pos, that_pos)
+			
+			
 		room.display_room_position(moved_positions)
 		room.rotate_time = angle
-		room.off_set_position = target-moved_pivot_position
+		room.off_set_position = need_move
 		return true
 	return false
 

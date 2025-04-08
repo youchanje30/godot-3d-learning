@@ -84,29 +84,31 @@ func generate_map() -> void:
 
 	# 문을 통해 추가 가능한 방을 순차적으로 추가
 	var generated_rooms = 0
-	var max_rooms_to_generate = 5
+	var max_rooms_to_generate = 30
 	for i in range(max_rooms_to_generate):
 		var select_room = all_rooms[randi_range(0, all_rooms.size()-1)]
 		
 		var doors = select_room.get_doors()
 		var k = doors.keys().pick_random()
 		
-		var door_angle = (select_room.rotate_time + grid_data.get_angle_from_direction(doors[k])) % 4
-		var door_pos = grid_data.get_vector_from_angle(k, door_angle) + select_room.off_set_position
-		var target_pos = grid_data.get_front_door(door_pos, (door_angle+2)%4)
-		#print(target_pos, door_pos)
 		
-		print(doors[k], grid_data.get_vector_from_angle(k, door_angle))
-		var rev_door_angle = (door_angle + 2) % 4
+		var rotated_pos = grid_data.get_vector_from_angle(k, select_room.rotate_time)
+		var moved_pos = rotated_pos + select_room.off_set_position
 		
-		for ii in range(5):
+		var total_angle = (select_room.rotate_time + grid_data.get_angle_from_direction(doors[k])) % 4
+		var add_pos = grid_data.get_normalized_vec_from_angle(total_angle)
+		
+		var total_pos = add_pos + moved_pos
+		var rev_door_angle = (total_angle + 2) % 4
+		
+		for ii in range(30):
 			var room = GetRandomFromPath(path)
 			add_child(room)
-			if not grid_data.try_place_room(room, target_pos, rev_door_angle): #grid_data.get_normalized_vec_from_angle(rev_door_angle)):
+			if not grid_data.try_place_room(room, total_pos, rev_door_angle): #grid_data.get_normalized_vec_from_angle(rev_door_angle)):
 				room.queue_free()
 				continue
+			all_rooms.append(room)
 			break
-	
 
 
 # 예제 사용법
