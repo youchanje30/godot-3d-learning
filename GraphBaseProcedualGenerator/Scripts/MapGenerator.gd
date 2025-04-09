@@ -75,46 +75,29 @@ func can_place_room(room: Room, position: Vector3i) -> bool:
 
 # 맵 생성 함수
 func generate_map() -> void:
-	# 시작 방 추가
 	var start_room_instance = start_room.instantiate()
 	add_child(start_room_instance)
 	all_rooms.append(start_room_instance)
 	grid_data.try_place_room(start_room_instance, Vector3i.ZERO, 0)
-
-
 	# 문을 통해 추가 가능한 방을 순차적으로 추가
 	var generated_rooms = 0
 	var max_rooms_to_generate = 30
 	for i in range(max_rooms_to_generate):
 		var select_room = all_rooms[randi_range(0, all_rooms.size()-1)]
-		
-		#var doors = select_room.get_doors()
-		#var k = doors.keys().pick_random()
-		#
-		#
-		#var rotated_pos = grid_data.get_vector_from_angle(k, select_room.rotate_time)
-		#var moved_pos = rotated_pos + select_room.off_set_position
-		#
-		#var total_angle = (select_room.rotate_time + grid_data.get_angle_from_direction(doors[k])) % 4
-		#var add_pos = grid_data.get_normalized_vec_from_angle(total_angle)
-		#
-		#var total_pos = add_pos + moved_pos
-		#var rev_door_angle = (total_angle + 2) % 4
-		
+		await get_tree().create_timer(0.25).timeout
 		for ii in range(30):
 			var room = GetRandomFromPath(path)
 			add_child(room)
-			if not grid_data.try_place_random_room(room):
-			#if not grid_data.try_place_room(room, total_pos, rev_door_angle): #grid_data.get_normalized_vec_from_angle(rev_door_angle)):
-				room.queue_free()
-				continue
-			all_rooms.append(room)
-			break
-
+			if grid_data.try_place_random_room(room):
+				all_rooms.append(room)
+				break
+			room.queue_free()
 
 # 예제 사용법
 func _ready() -> void:
 	randomize()
-	#load_room_files()
+	await get_tree().create_timer(2).timeout
 	generate_map()
+	await get_tree().create_timer(10).timeout
 	grid_data.check_doors()
+	

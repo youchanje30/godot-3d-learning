@@ -86,12 +86,10 @@ func create_cube(position: Vector3):
 	cube.set_surface_override_material(0, material)
 	return cube
 
-
 var color : Color
 func generate_random_color() -> Color:
 	return Color(randf(), randf(), randf())
 func _ready() -> void: color = generate_random_color()
-
 
 func get_angle_from_direction(dir : Vector3i)->int:
 	if dir == Vector3i.BACK: return 0

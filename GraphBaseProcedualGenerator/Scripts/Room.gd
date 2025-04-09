@@ -77,9 +77,6 @@ func add_door_pos(pos : Vector3):
 	var cube = create_cube(pos)
 	cube.scale = Vector3.ONE * 1
 	return cube
-	
 
 func _ready() -> void:
 	set_room_color(generate_random_color())
-	#display_room_position(get_positions())
-	#display_room()
