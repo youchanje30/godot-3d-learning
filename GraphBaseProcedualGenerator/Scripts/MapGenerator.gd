@@ -88,23 +88,24 @@ func generate_map() -> void:
 	for i in range(max_rooms_to_generate):
 		var select_room = all_rooms[randi_range(0, all_rooms.size()-1)]
 		
-		var doors = select_room.get_doors()
-		var k = doors.keys().pick_random()
-		
-		
-		var rotated_pos = grid_data.get_vector_from_angle(k, select_room.rotate_time)
-		var moved_pos = rotated_pos + select_room.off_set_position
-		
-		var total_angle = (select_room.rotate_time + grid_data.get_angle_from_direction(doors[k])) % 4
-		var add_pos = grid_data.get_normalized_vec_from_angle(total_angle)
-		
-		var total_pos = add_pos + moved_pos
-		var rev_door_angle = (total_angle + 2) % 4
+		#var doors = select_room.get_doors()
+		#var k = doors.keys().pick_random()
+		#
+		#
+		#var rotated_pos = grid_data.get_vector_from_angle(k, select_room.rotate_time)
+		#var moved_pos = rotated_pos + select_room.off_set_position
+		#
+		#var total_angle = (select_room.rotate_time + grid_data.get_angle_from_direction(doors[k])) % 4
+		#var add_pos = grid_data.get_normalized_vec_from_angle(total_angle)
+		#
+		#var total_pos = add_pos + moved_pos
+		#var rev_door_angle = (total_angle + 2) % 4
 		
 		for ii in range(30):
 			var room = GetRandomFromPath(path)
 			add_child(room)
-			if not grid_data.try_place_room(room, total_pos, rev_door_angle): #grid_data.get_normalized_vec_from_angle(rev_door_angle)):
+			if not grid_data.try_place_random_room(room):
+			#if not grid_data.try_place_room(room, total_pos, rev_door_angle): #grid_data.get_normalized_vec_from_angle(rev_door_angle)):
 				room.queue_free()
 				continue
 			all_rooms.append(room)

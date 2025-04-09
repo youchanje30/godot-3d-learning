@@ -100,6 +100,15 @@ func get_angle_from_direction(dir : Vector3i)->int:
 	if dir == Vector3i.LEFT: return 3
 	return 0
 
+
+func try_place_random_room(room : Room)->bool:
+	var k = special_cells.keys().pick_random()
+	var target_pos = special_cells[k]
+	var dir = get_angle_from_direction(target_pos - key_to_vector(k))
+	var rev_dir = (dir + 2) % 4
+	return try_place_room(room, target_pos, rev_dir)
+
+
 func try_place_room(room : Room, target : Vector3i, dir_angle : int)->bool:
 	var doors = room.get_doors()
 	for k in doors:
