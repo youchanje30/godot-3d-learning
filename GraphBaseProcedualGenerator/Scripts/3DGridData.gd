@@ -113,21 +113,16 @@ func try_place_room(room : Room, target : Vector3i, dir_angle : int)->bool:
 	var doors = room.get_doors()
 	for k in doors:
 		var pivot_position = k
-		var angle = (get_angle_from_direction(doors[k]) - dir_angle + 4) % 4
-		var positions = room.get_positions()
-		var rotated_positions = rotate_vectors(positions, angle)
-		var moved_pivot_position = get_vector_from_angle(pivot_position, angle)
+		var angle = (dir_angle - get_angle_from_direction(doors[k]) + 12) % 4
+		var need_move = target - get_vector_from_angle(pivot_position, angle)
+		var moved_positions = move_vectors(rotate_vectors(room.get_positions(), angle), need_move)
 		
-		var need_move = target-moved_pivot_position
-		var moved_positions = move_vectors(rotated_positions, need_move)
-		
-		var can = true
+		var can = false
 		for pos in moved_positions:
-			if not is_cell_filled(pos): continue
-			can = false
-			break
+			if is_cell_filled(pos): can = true
 		
-		if not can: continue
+		if can: continue
+		
 		for pos in moved_positions: fill_cell(pos, room)
 		for ke in doors:
 			var cur_pos = get_vector_from_angle(ke, angle) + need_move
