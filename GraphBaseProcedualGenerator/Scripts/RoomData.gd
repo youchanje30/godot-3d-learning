@@ -23,12 +23,17 @@ func get_positions() -> Array[Vector3i]:
 	return positions
 
 ## 문 추가
-#func add_door(position: Vector3i, direction: Vector3i) -> void:
-	#doors[position] = direction
-#
+func add_position(position: Vector3i) -> void:
+	if not positions.has(position):
+		positions.append(position)
+
+func add_door(position: Vector3i, direction: Vector3i) -> void:
+	doors[position] = direction
+
 ## 문 제거
-#func remove_door(position: Vector3i) -> void:
-	#if doors.has(position): doors.erase(position)
+func remove_door(position: Vector3i) -> void:
+	if doors.has(position):
+		doors.erase(position)
 
 # 문의 위치들 가져오기
 func get_doors() -> Dictionary[Vector3i, Vector3i]:
@@ -40,4 +45,8 @@ func has_door(position: Vector3i) -> bool:
 
 # 방향을 기준으로 특정 위치에 문이 있는지 확인
 func is_door_in_direction(position: Vector3i, direction: Vector3i) -> bool:
-	return has_door(position) and doors.get(position) == direction
+	return has_door(position) and doors[position] == direction
+
+func clear() -> void:
+	positions.clear()
+	doors.clear()

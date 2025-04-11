@@ -2,102 +2,93 @@ extends Node
 
 # 맵 생성기
 
-@export var grid_data: Node  # 이미 씬에 추가된 3DGridData 노드
-@export var path: String = "res://GraphBaseProcedualGenerator/Rooms/"  # 방 파일들이 있는 폴더 경로
+@export var room_templates_path: String = "res://GraphBaseProcedualGenerator/Rooms/"
+@export var max_rooms: int = 30
+@export var room_placement_delay: float = 0.25
 
-var room_files: Array = []  # Room 파일 리스트
+var grid_system: GridSystem
+var collision_system: CollisionSystem
+var room_placement_system: RoomPlacementSystem
+var room_factory: RoomFactory
 
-# 시작 방을 추가
-var start_room:=preload("res://GraphBaseProcedualGenerator/Rooms/room.tscn")
-
-# 모든 방의 데이터 저장 (문을 통해 추가된 방 포함)
 var all_rooms: Array[Room] = []
 
-# 폴더 내의 Room 파일들을 탐색하는 함수
-func load_room_files() -> void:
-	var dir = DirAccess.get_files_at(path)
-	if dir.open(path) == OK:
-		dir.list_dir_begin()
-		var file_name = dir.get_next()
-		while file_name:
-			if file_name.ends_with(".tscn"):
-				room_files.append(path + "/" + file_name)
-			file_name = dir.get_next()
-		dir.list_dir_end()
-	else:
-		print("Failed to open directory: ", path)
-
-# Room 파일을 랜덤으로 선택하여 로드하는 함수
-func load_random_room():
-	if room_files.size() > 0:
-		var random_index = randi() % room_files.size()
-		var room_path = room_files[random_index]
-		var room_scene = load(room_path)
-		return room_scene
-	return null
-
-# 문을 연결하거나 벽으로 막는 함수
-func connect_or_block_doors(room: Room) -> void:
-	pass
-	#for door_position in room.get_doors().keys():
-		#var next_room_position = grid_data.get_next_room_position(room.global_transform.origin, door_position)
-		#if next_room_position and grid_data.is_cell_filled(next_room_position):
-			## 다음 방이 존재하면 문을 연결
-			#print("Connecting door at ", door_position, " to room at ", next_room_position)
-		#else:
-			## 다음 방이 존재하지 않으면 벽으로 막음
-			#print("Blocking door at ", door_position)
-			#var wall = create_cube(room.global_transform.origin + door_position)
-			#add_child(wall)
-
-
-func GetRandomFromPath(path : String):
-	var resource_files = DirAccess.get_files_at(path)
-	var random_resource = resource_files[randi() % resource_files.size()]
-	var data = load(path + random_resource).instantiate()
-	return data
-
-# 방을 추가할 수 있는지 확인하는 함수
-func can_place_room(room: Room, position: Vector3i) -> bool:
-	for pos in room.get_positions():
-		if grid_data.is_cell_filled(position + pos):
-			return false
-	return true
-
-## 문을 통해 방을 추가하는 함수
-
-## 방의 문을 선택하고 방을 추가하는 함수
-#func add_room_with_door_logic(room: Room) -> bool:
-	#for door_position in room.get_doors().keys():
-		#if try_add_room_at_door(room, door_position, 5, 3):
-			#return true
-	#return false
-
-# 맵 생성 함수
-func generate_map() -> void:
-	var start_room_instance = start_room.instantiate()
-	add_child(start_room_instance)
-	all_rooms.append(start_room_instance)
-	grid_data.try_place_room(start_room_instance, Vector3i.ZERO, 0)
-	# 문을 통해 추가 가능한 방을 순차적으로 추가
-	var generated_rooms = 0
-	var max_rooms_to_generate = 30
-	for i in range(max_rooms_to_generate):
-		var select_room = all_rooms[randi_range(0, all_rooms.size()-1)]
-		await get_tree().create_timer(0.25).timeout
-		for ii in range(30):
-			var room = GetRandomFromPath(path)
-			add_child(room)
-			if grid_data.try_place_random_room(room):
-				all_rooms.append(room)
-				break
-			room.queue_free()
-
-# 예제 사용법
 func _ready() -> void:
 	randomize()
-	await get_tree().create_timer(2).timeout
+	initialize_systems()
+	await get_tree().create_timer(0.2).timeout
 	generate_map()
-	await get_tree().create_timer(10).timeout
-	grid_data.check_doors()
+
+func initialize_systems() -> void:
+	grid_system = GridSystem.new()
+	collision_system = CollisionSystem.new(grid_system)
+	room_placement_system = RoomPlacementSystem.new(grid_system, collision_system)
+	room_factory = RoomFactory.new(room_templates_path)
 	
+	add_child(grid_system)
+
+func generate_map() -> void:
+	# Place start room
+	var start_room = room_factory.create_room("room.tscn")
+	if not start_room:
+		push_error("Failed to create start room")
+		return
+		
+	add_child(start_room)
+	all_rooms.append(start_room)
+	
+	if not room_placement_system.try_place_room(start_room, Vector3i.ZERO, 0):
+		push_error("Failed to place start room")
+		return
+	
+	# Generate additional rooms
+	for i in range(max_rooms):
+		await get_tree().create_timer(room_placement_delay).timeout
+		
+		var room = room_factory.create_random_room()
+		if not room:
+			continue
+			
+		add_child(room)
+		
+		if room_placement_system.try_place_random_room(room):
+			all_rooms.append(room)
+		else:
+			room.queue_free()
+	
+	# Final door check
+	await get_tree().create_timer(10).timeout
+	check_doors()
+
+func check_doors() -> void:
+	var special_cells = grid_system.get_all_special_cells()
+	for key in special_cells.keys():
+		if not special_cells.has(key):
+			continue
+			
+		var target_pos = special_cells[key]
+		if not special_cells.has(grid_system.vector_to_key(target_pos)):
+			continue
+			
+		var cur_pos = grid_system.key_to_vector(key)
+		if cur_pos != special_cells[grid_system.vector_to_key(target_pos)]:
+			continue
+			
+		# Remove connected doors
+		special_cells.erase(key)
+		special_cells.erase(grid_system.vector_to_key(target_pos))
+		
+		# Visualize connection
+		var cube1 = create_connection_marker(cur_pos)
+		var cube2 = create_connection_marker(target_pos)
+		add_child(cube1)
+		add_child(cube2)
+
+func create_connection_marker(position: Vector3) -> MeshInstance3D:
+	var cube = MeshInstance3D.new()
+	cube.mesh = BoxMesh.new()
+	cube.transform.origin = position
+	var material = StandardMaterial3D.new()
+	material.albedo_color = Color(randf(), randf(), randf())
+	cube.set_surface_override_material(0, material)
+	return cube

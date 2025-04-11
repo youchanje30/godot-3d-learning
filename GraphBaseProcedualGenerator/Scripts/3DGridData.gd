@@ -14,54 +14,142 @@ var special_cells = {}
 func vector_to_key(vec: Vector3i) -> String:
 	return "%d,%d,%d" % [vec.x, vec.y, vec.z]
 
-# 키를 벡터로 변환 (필요한 경우)
+# 키를 벡터로 변환
 func key_to_vector(key: String) -> Vector3i:
 	var parts = key.split(",")
 	return Vector3i(int(parts[0]), int(parts[1]), int(parts[2]))
 
-# 셀 채우기
-func fill_cell(position: Vector3i, room_node: Node, data = true) -> void:
-	#filled_cells[vector_to_key(position)] = {"data": data, "room": room_node}
+# 셀 관리 함수들
+func fill_cell(position: Vector3i, room_node: Node) -> void:
 	filled_cells[vector_to_key(position)] = room_node
-	print(vector_to_key(position) , "filled")
 
-# 셀 비우기
-func clear_cell(position: Vector3i) -> void:
-	var key = vector_to_key(position)
-	if filled_cells.has(key):
-		filled_cells.erase(key)
-
-# 셀이 채워져 있는지 확인
 func is_cell_filled(position: Vector3i) -> bool:
 	return filled_cells.has(vector_to_key(position))
 
-# 셀 데이터 가져오기
 func get_cell_data(position: Vector3i):
 	return filled_cells.get(vector_to_key(position), null)
 
-# 특수 셀 추가
+# 특수 셀 관리
 func add_special_cell(position: Vector3i, direction: Vector3i) -> void:
 	special_cells[vector_to_key(position)] = direction
 
-# 특수 셀 데이터 가져오기
 func get_special_cell_data(position: Vector3i):
 	return special_cells.get(vector_to_key(position), null)
 
-# 특수 셀을 통해 이동할 수 있는 다음 방의 위치 계산
-func get_next_room_position(current_position: Vector3i, door_position: Vector3i) -> Vector3i:
-	if not special_cells.has(vector_to_key(door_position)):
-		return Vector3i.ZERO
-	var direction = special_cells[vector_to_key(door_position)]
-	return current_position + direction
+# 방향 관련 상수
+const DIRECTIONS = {
+	BACK = 0,
+	RIGHT = 1,
+	FORWARD = 2,
+	LEFT = 3
+}
 
-# 테트로미노 블록이 유효한 위치인지 확인 (충돌 없음)
-func can_place_blocks(block_positions: Array[Vector3i]) -> bool:
-	for pos in block_positions:
-		# 이미 채워진 셀이라면 배치 불가
-		if is_cell_filled(pos):
-			return false
-	return true
+const DIRECTION_VECTORS = {
+	0: Vector3i.BACK,
+	1: Vector3i.RIGHT,
+	2: Vector3i.FORWARD,
+	3: Vector3i.LEFT
+}
 
+# 방향 변환 함수
+func get_angle_from_direction(dir: Vector3i) -> int:
+	if dir == Vector3i.BACK: return DIRECTIONS.BACK
+	if dir == Vector3i.RIGHT: return DIRECTIONS.RIGHT
+	if dir == Vector3i.FORWARD: return DIRECTIONS.FORWARD
+	if dir == Vector3i.LEFT: return DIRECTIONS.LEFT
+	return DIRECTIONS.BACK
+
+func get_normalized_vec_from_angle(angle: int) -> Vector3i:
+	return DIRECTION_VECTORS.get(angle, Vector3i.BACK)
+
+# 회전 관련 함수
+func rotate_vectors(vectors: Array[Vector3i], angle_option: int) -> Array[Vector3i]:
+	var result: Array[Vector3i] = []
+	result.resize(vectors.size())
+	
+	match angle_option:
+		0: # 0도
+			result = vectors.duplicate()
+		1: # 90도
+			for i in vectors.size():
+				result[i] = Vector3i(vectors[i].z, vectors[i].y, -vectors[i].x)
+		2: # 180도
+			for i in vectors.size():
+				result[i] = Vector3i(-vectors[i].x, vectors[i].y, -vectors[i].z)
+		3: # 270도
+			for i in vectors.size():
+				result[i] = Vector3i(-vectors[i].z, vectors[i].y, vectors[i].x)
+	
+	return result
+
+# 방 배치 관련 함수
+func try_place_random_room(room: Room) -> bool:
+	var keys = special_cells.keys()
+	if keys.is_empty(): return false
+	
+	var k = keys.pick_random()
+	var target_pos = special_cells[k]
+	var dir = get_angle_from_direction(target_pos - key_to_vector(k))
+	return try_place_room(room, target_pos, (dir + 2) % 4)
+
+func try_place_room(room: Room, target: Vector3i, dir_angle: int) -> bool:
+	var doors = room.get_doors()
+	var positions = room.get_positions()
+	
+	for door_pos in doors:
+		var angle = (dir_angle - get_angle_from_direction(doors[door_pos]) + 12) % 4
+		var need_move = target - get_vector_from_angle(door_pos, angle)
+		
+		# 회전과 이동을 한번만 수행
+		var rotated_positions = rotate_vectors(positions, angle) 
+		var moved_positions = move_vectors(rotated_positions, need_move)
+		
+		# 문 위치도 같이 회전/이동
+		var rotated_doors = {}
+		for door in doors:
+			var rotated_door_pos = get_vector_from_angle(door, angle)
+			var moved_door_pos = rotated_door_pos + need_move
+			rotated_doors[moved_door_pos] = get_normalized_vec_from_angle((angle + get_angle_from_direction(doors[door])) % 4)
+		
+		# 충돌 검사
+		var has_collision = false
+		for pos in moved_positions:
+			if is_cell_filled(pos):
+				has_collision = true
+				break
+		
+		if has_collision:
+			continue
+		
+		# 방 배치
+		for pos in moved_positions:
+			fill_cell(pos, room)
+		
+		# 문 처리 - 미리 계산된 위치 사용
+		for door_pos_temp in rotated_doors.keys():
+			add_special_cell(door_pos_temp, door_pos_temp + rotated_doors[door_pos_temp])
+		
+		room.display_room_position(moved_positions)
+		room.rotate_time = angle
+		room.off_set_position = need_move
+		return true
+	
+	return false
+
+func move_vectors(vectors: Array[Vector3i], offset: Vector3i) -> Array[Vector3i]:
+	var result: Array[Vector3i] = []
+	result.resize(vectors.size())
+	for i in vectors.size():
+		result[i] = vectors[i] + offset
+	return result
+
+func get_vector_from_angle(vec: Vector3i, angle_option: int) -> Vector3i:
+	match angle_option:
+		0: return vec
+		1: return Vector3i(vec.z, vec.y, -vec.x)
+		2: return Vector3i(-vec.x, vec.y, -vec.z)
+		3: return Vector3i(-vec.z, vec.y, vec.x)
+	return vec
 
 func check_doors():
 	for k in special_cells.keys():
@@ -90,85 +178,3 @@ var color : Color
 func generate_random_color() -> Color:
 	return Color(randf(), randf(), randf())
 func _ready() -> void: color = generate_random_color()
-
-func get_angle_from_direction(dir : Vector3i)->int:
-	if dir == Vector3i.BACK: return 0
-	if dir == Vector3i.RIGHT: return 1
-	if dir == Vector3i.FORWARD: return 2
-	if dir == Vector3i.LEFT: return 3
-	return 0
-
-
-func try_place_random_room(room : Room)->bool:
-	var k = special_cells.keys().pick_random()
-	var target_pos = special_cells[k]
-	var dir = get_angle_from_direction(target_pos - key_to_vector(k))
-	var rev_dir = (dir + 2) % 4
-	return try_place_room(room, target_pos, rev_dir)
-
-
-func try_place_room(room : Room, target : Vector3i, dir_angle : int)->bool:
-	var doors = room.get_doors()
-	for k in doors:
-		var pivot_position = k
-		var angle = (dir_angle - get_angle_from_direction(doors[k]) + 12) % 4
-		var need_move = target - get_vector_from_angle(pivot_position, angle)
-		var moved_positions = move_vectors(rotate_vectors(room.get_positions(), angle), need_move)
-		
-		var can = false
-		for pos in moved_positions:
-			if is_cell_filled(pos): can = true
-		
-		if can: continue
-		
-		for pos in moved_positions: fill_cell(pos, room)
-		for ke in doors:
-			var cur_pos = get_vector_from_angle(ke, angle) + need_move
-			var that_pos = cur_pos + get_normalized_vec_from_angle((angle + get_angle_from_direction(doors[ke])) % 4)
-			add_special_cell(cur_pos, that_pos)
-		room.display_room_position(moved_positions)
-		room.rotate_time = angle
-		room.off_set_position = need_move
-		return true
-	return false
-
-func move_vectors(vectors: Array[Vector3i], OffSet: Vector3i) -> Array[Vector3i]:
-	var result : Array[Vector3i] = []
-	for vec in vectors: result.append(vec + OffSet)
-	return result
-
-
-# 회전된 테트로미노 블록이 유효한지 확인
-func can_rotate_block(block_positions: Array[Vector3i], angle_option: int) -> bool:
-	var rotated_positions = rotate_vectors(block_positions, angle_option)
-	# 충돌 검사
-	return can_place_blocks(rotated_positions)
-
-func get_front_door(pos : Vector3i, angle_option : int)->Vector3i:
-	return pos + get_normalized_vec_from_angle(angle_option)
-
-# 벡터 배열을 최적화된 방식으로 회전
-func rotate_vectors(vectors: Array[Vector3i], angle_option: int) -> Array[Vector3i]:
-	var result: Array[Vector3i] = []
-	
-	for vec in vectors: result.append(get_vector_from_angle(vec, angle_option))
-	return result
-
-func get_vector_from_angle(vec : Vector3i, angle_option : int)->Vector3i:
-	match angle_option:
-		0: # 0 degrees - no change
-			return Vector3i(vec.x, vec.y, vec.z)
-		1: # 90 degrees  --  x' = z, z' = -x
-			return Vector3i(vec.z, vec.y, -vec.x)
-		2: # 180 degrees --  x' = -x, z' = -z
-			return  Vector3i(-vec.x, vec.y, -vec.z)
-		3: # 270 degrees --  x' = -z, z' = x
-			return Vector3i(-vec.z, vec.y, vec.x)
-	return Vector3i(vec.x, vec.y, vec.z)
-
-func get_normalized_vec_from_angle(angle : int)->Vector3i:
-	if angle == 0: return Vector3i.BACK
-	if angle == 1: return Vector3i.RIGHT 
-	if angle == 2: return Vector3i.FORWARD
-	if angle == 3: return Vector3i.LEFT
-	return Vector3i.BACK
