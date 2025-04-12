@@ -4,7 +4,9 @@ extends Node
 
 @export var room_templates_path: String = "res://GraphBaseProcedualGenerator/Rooms/"
 @export var max_rooms: int = 30
+@export var try_place_rooms_count: int = 10
 @export var room_placement_delay: float = 0.25
+@export var connect_room_color: Color = Color(randf(), randf(), randf())
 
 var grid_system: GridSystem
 var collision_system: CollisionSystem
@@ -45,19 +47,24 @@ func generate_map() -> void:
 	for i in range(max_rooms):
 		await get_tree().create_timer(room_placement_delay).timeout
 		
-		var room = room_factory.create_random_room()
-		if not room:
-			print("Failed to create room")
-			continue
+		var success = false
+		for j in range(try_place_rooms_count):
+			var room = room_factory.create_random_room()
+			if not room:
+				print("Failed to create room")
+				continue
 			
-		add_child(room)
-		
-		if room_placement_system.try_place_random_room(room):
-			print("Placed room")
-			all_rooms.append(room)
-		else:
-			room.queue_free()
-	
+			add_child(room)
+			
+			if room_placement_system.try_place_random_room(room):
+				print("Placed room")
+				all_rooms.append(room)
+				success = true
+				break
+			else:
+				room.queue_free()
+		if not success:
+			print("Failed to place room")
 	# Final door check
 	await get_tree().create_timer(10).timeout
 	check_doors()
@@ -91,6 +98,6 @@ func create_connection_marker(position: Vector3) -> MeshInstance3D:
 	cube.mesh = BoxMesh.new()
 	cube.transform.origin = position
 	var material = StandardMaterial3D.new()
-	material.albedo_color = Color(randf(), randf(), randf())
+	material.albedo_color = connect_room_color
 	cube.set_surface_override_material(0, material)
 	return cube

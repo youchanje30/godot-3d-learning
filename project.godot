@@ -11,7 +11,7 @@ config_version=5
 [application]
 
 config/name="3d3d"
-run/main_scene="uid://cimrc8bmu1s6j"
+run/main_scene="uid://vwni1d12gfhr"
 config/features=PackedStringArray("4.4", "Forward Plus")
 config/icon="res://icon.svg"
 
