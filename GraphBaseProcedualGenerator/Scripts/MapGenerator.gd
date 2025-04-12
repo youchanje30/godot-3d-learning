@@ -18,7 +18,7 @@ var all_rooms: Array[Room] = []
 func _ready() -> void:
 	randomize()
 	initialize_systems()
-	await get_tree().create_timer(0.2).timeout
+	await get_tree().create_timer(2).timeout
 	generate_map()
 
 func initialize_systems() -> void:
@@ -31,7 +31,7 @@ func initialize_systems() -> void:
 
 func generate_map() -> void:
 	# Place start room
-	var start_room = room_factory.create_room("room.tscn")
+	var start_room = room_factory.create_room("bridge_room.tscn")
 	if not start_room:
 		print("Failed to create start room")
 		return

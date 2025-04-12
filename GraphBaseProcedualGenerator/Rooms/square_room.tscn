@@ -1,8 +1,8 @@
-[gd_scene load_steps=3 format=3 uid="uid://square_room_scene_uid"]
+[gd_scene load_steps=3 format=3 uid="uid://blq42jejrpj2u"]
 
 [ext_resource type="Script" uid="uid://dw4xtjk33qgmp" path="res://GraphBaseProcedualGenerator/Scripts/Room.gd" id="1_script"]
-[ext_resource type="Resource" uid="uid://square_room_uid" path="res://GraphBaseProcedualGenerator/RoomData/square_room.tres" id="2_data"]
+[ext_resource type="Resource" path="res://GraphBaseProcedualGenerator/RoomData/square_room.tres" id="2_data"]
 
 [node name="Square_Room" type="Node3D"]
 script = ExtResource("1_script")
-room_data = ExtResource("2_data") 
+room_data = ExtResource("2_data")

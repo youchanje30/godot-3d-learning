@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="RoomData" load_steps=2 format=3 uid="uid://u_room_uid"]
+
+[ext_resource type="Script" uid="uid://b0h52uxyqteiq" path="res://GraphBaseProcedualGenerator/Scripts/RoomData.gd" id="1_script"]
+
+[resource]
+script = ExtResource("1_script")
+positions = Array[Vector3i]([
+Vector3i(0, 0, 0), Vector3i(1, 0, 0), Vector3i(2, 0, 0), Vector3i(3, 0, 0),
+Vector3i(0, 0, 1), Vector3i(3, 0, 1),
+Vector3i(0, 0, 2), Vector3i(3, 0, 2),
+Vector3i(0, 0, 3), Vector3i(1, 0, 3), Vector3i(2, 0, 3), Vector3i(3, 0, 3)
+])
+doors = Dictionary[Vector3i, Vector3i]({
+Vector3i(0, 0, 0): Vector3i(-1, 0, 0),
+Vector3i(3, 0, 0): Vector3i(1, 0, 0),
+Vector3i(1, 0, 3): Vector3i(0, 0, 1)
+})
+metadata/_custom_type_script = "uid://b0h52uxyqteiq" 

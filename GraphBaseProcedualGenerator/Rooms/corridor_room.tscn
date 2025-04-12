@@ -1,0 +1,8 @@
+[gd_scene load_steps=3 format=3 uid="uid://corridor_scene_uid"]
+
+[ext_resource type="Script" path="res://GraphBaseProcedualGenerator/Scripts/Room.gd" id="1_script"]
+[ext_resource type="Resource" path="res://GraphBaseProcedualGenerator/RoomData/corridor_room.tres" id="2_data"]
+
+[node name="Corridor_Room" type="Node3D"]
+script = ExtResource("1_script")
+room_data = ExtResource("2_data") 

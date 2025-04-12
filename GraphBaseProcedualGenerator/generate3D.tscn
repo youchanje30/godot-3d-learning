@@ -4,3 +4,4 @@
 
 [node name="Generator" type="Node3D"]
 script = ExtResource("1_1t80u")
+max_rooms = 50

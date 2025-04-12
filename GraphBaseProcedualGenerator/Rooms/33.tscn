@@ -1,8 +1,0 @@
-[gd_scene load_steps=3 format=3 uid="uid://bw1rboaiamc7x"]
-
-[ext_resource type="Script" uid="uid://dw4xtjk33qgmp" path="res://GraphBaseProcedualGenerator/Scripts/Room.gd" id="1_23wcj"]
-[ext_resource type="Resource" uid="uid://eruwd1yd4mll" path="res://GraphBaseProcedualGenerator/RoomData/33room.tres" id="2_23wcj"]
-
-[node name="Room" type="Node3D"]
-script = ExtResource("1_23wcj")
-room_data = ExtResource("2_23wcj")
