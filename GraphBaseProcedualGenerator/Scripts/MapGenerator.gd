@@ -31,14 +31,14 @@ func generate_map() -> void:
 	# Place start room
 	var start_room = room_factory.create_room("room.tscn")
 	if not start_room:
-		push_error("Failed to create start room")
+		print("Failed to create start room")
 		return
 		
 	add_child(start_room)
 	all_rooms.append(start_room)
 	
 	if not room_placement_system.try_place_room(start_room, Vector3i.ZERO, 0):
-		push_error("Failed to place start room")
+		print("Failed to place start room")
 		return
 	
 	# Generate additional rooms
@@ -47,11 +47,13 @@ func generate_map() -> void:
 		
 		var room = room_factory.create_random_room()
 		if not room:
+			print("Failed to create room")
 			continue
 			
 		add_child(room)
 		
 		if room_placement_system.try_place_random_room(room):
+			print("Placed room")
 			all_rooms.append(room)
 		else:
 			room.queue_free()

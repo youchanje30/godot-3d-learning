@@ -32,6 +32,7 @@ func get_cell_data(position: Vector3i):
 # 특수 셀 관리
 func add_special_cell(position: Vector3i, direction: Vector3i) -> void:
 	special_cells[vector_to_key(position)] = direction
+	print("add_special_cell", position, direction)
 
 func get_special_cell_data(position: Vector3i):
 	return special_cells.get(vector_to_key(position), null)
@@ -90,11 +91,12 @@ func try_place_random_room(room: Room) -> bool:
 	var k = keys.pick_random()
 	var target_pos = special_cells[k]
 	var dir = get_angle_from_direction(target_pos - key_to_vector(k))
-	return try_place_room(room, target_pos, (dir + 2) % 4)
+	return try_place_room(room, target_pos , (dir + 2) % 4)
 
 func try_place_room(room: Room, target: Vector3i, dir_angle: int) -> bool:
 	var doors = room.get_doors()
 	var positions = room.get_positions()
+
 	
 	for door_pos in doors:
 		var angle = (dir_angle - get_angle_from_direction(doors[door_pos]) + 12) % 4
