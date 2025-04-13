@@ -8,11 +8,8 @@ class_name RoomData
 # 키: 문 위치 (Vector3i)
 # 값: 문 방향 (Vector3i)
 @export var doors: Dictionary[Vector3i, Vector3i] = {}
-#
-## 생성자
-#func _init(positions: Array[Vector3i] = [], doors: Dictionary[Vector3i, Vector3i] = {}) -> void:
-	#self.positions = positions
-	#self.doors = doors
+# 방의 색상
+@export var room_color: Color = Color.WHITE
 
 # 방의 위치들 설정
 #func set_positions(new_positions: Array[Vector3i]) -> void:
@@ -50,3 +47,7 @@ func is_door_in_direction(position: Vector3i, direction: Vector3i) -> bool:
 func clear() -> void:
 	positions.clear()
 	doors.clear()
+
+# 방의 색상 설정
+func set_room_color(color: Color) -> void:
+	room_color = color

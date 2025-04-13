@@ -26,7 +26,6 @@ func initialize_systems() -> void:
 	collision_system = CollisionSystem.new(grid_system)
 	room_placement_system = RoomPlacementSystem.new(grid_system, collision_system)
 	room_factory = RoomFactory.new(room_templates_path)
-	
 	add_child(grid_system)
 
 func generate_map() -> void:
