@@ -140,6 +140,8 @@ func generate_random_color() -> Color:
 # 방의 색상 설정 함수
 func set_room_color(color: Color) -> void:
 	room_color = color
+	if room_data:
+		room_data.set_room_color(color)
 	update_visualization()
 
 # 정육면체 MeshInstance를 생성하는 함수
@@ -148,7 +150,9 @@ func create_cube(position: Vector3) -> MeshInstance3D:
 	cube.mesh = BoxMesh.new()
 	cube.transform.origin = position
 	var material = StandardMaterial3D.new()
-	material.albedo_color = room_data.room_color
+	material.albedo_color = room_color
+	material.roughness = 0.7
+	material.metallic = 0.1
 	cube.set_surface_override_material(0, material)
 	return cube
 
@@ -165,4 +169,5 @@ func add_door_pos(pos : Vector3):
 func _ready() -> void:
 	if not room_data:
 		room_data = RoomData.new()
-	set_room_color(generate_random_color())
+	var random_color = generate_random_color()
+	set_room_color(random_color)

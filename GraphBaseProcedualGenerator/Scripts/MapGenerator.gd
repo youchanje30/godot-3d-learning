@@ -1,5 +1,7 @@
 extends Node
 
+const RoomModelGenerator = preload("res://GraphBaseProcedualGenerator/Scripts/RoomModelGenerator.gd")
+
 # 맵 생성기
 
 @export var room_templates_path: String = "res://GraphBaseProcedualGenerator/Rooms/"
@@ -12,6 +14,7 @@ var grid_system: GridSystem
 var collision_system: CollisionSystem
 var room_placement_system: RoomPlacementSystem
 var room_factory: RoomFactory
+var room_model_generator: RoomModelGenerator
 
 var all_rooms: Array[Room] = []
 
@@ -19,14 +22,17 @@ func _ready() -> void:
 	randomize()
 	initialize_systems()
 	await get_tree().create_timer(2).timeout
-	generate_map()
+	await generate_map()
+	generate_3d_rooms()
 
 func initialize_systems() -> void:
 	grid_system = GridSystem.new()
 	collision_system = CollisionSystem.new(grid_system)
 	room_placement_system = RoomPlacementSystem.new(grid_system, collision_system)
 	room_factory = RoomFactory.new(room_templates_path)
+	room_model_generator = RoomModelGenerator.new()
 	add_child(grid_system)
+	add_child(room_model_generator)
 
 func generate_map() -> void:
 	# Place start room
@@ -65,8 +71,8 @@ func generate_map() -> void:
 		if not success:
 			print("Failed to place room")
 	# Final door check
-	await get_tree().create_timer(10).timeout
-	check_doors()
+	# await get_tree().create_timer(10).timeout
+	# check_doors()
 
 func check_doors() -> void:
 	var special_cells = grid_system.get_all_special_cells()
@@ -100,3 +106,6 @@ func create_connection_marker(position: Vector3) -> MeshInstance3D:
 	material.albedo_color = connect_room_color
 	cube.set_surface_override_material(0, material)
 	return cube
+
+func generate_3d_rooms() -> void:
+	room_model_generator.generate_from_grid_system(grid_system, all_rooms)

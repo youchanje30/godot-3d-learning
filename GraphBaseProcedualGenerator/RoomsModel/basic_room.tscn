@@ -1,0 +1,39 @@
+[gd_scene load_steps=3 format=3 uid="uid://c0rxvmewjp0im"]
+
+[sub_resource type="StandardMaterial3D" id="StandardMaterial3D_1"]
+
+[sub_resource type="BoxShape3D" id="BoxShape3D_1"]
+size = Vector3(3, 3, 3)
+
+[node name="BasicRoom" type="Node3D"]
+
+[node name="RoomBody" type="StaticBody3D" parent="."]
+
+[node name="Floor" type="CSGBox3D" parent="RoomBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, -0.1, 0)
+size = Vector3(3, 0.2, 3)
+material = SubResource("StandardMaterial3D_1")
+
+[node name="WallNorth" type="CSGBox3D" parent="RoomBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, -1.5)
+size = Vector3(3, 3, 0.2)
+material = SubResource("StandardMaterial3D_1")
+
+[node name="WallSouth" type="CSGBox3D" parent="RoomBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 1.5)
+size = Vector3(3, 3, 0.2)
+material = SubResource("StandardMaterial3D_1")
+
+[node name="WallEast" type="CSGBox3D" parent="RoomBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 1.5, 1.5, 0)
+size = Vector3(0.2, 3, 3)
+material = SubResource("StandardMaterial3D_1")
+
+[node name="WallWest" type="CSGBox3D" parent="RoomBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, -1.5, 1.5, 0)
+size = Vector3(0.2, 3, 3)
+material = SubResource("StandardMaterial3D_1")
+
+[node name="CollisionShape" type="CollisionShape3D" parent="RoomBody"]
+transform = Transform3D(1, 0, 0, 0, 1, 0, 0, 0, 1, 0, 1.5, 0)
+shape = SubResource("BoxShape3D_1")
