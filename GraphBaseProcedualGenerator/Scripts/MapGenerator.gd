@@ -23,7 +23,7 @@ func _ready() -> void:
 	initialize_systems()
 	await get_tree().create_timer(2).timeout
 	await generate_map()
-	generate_3d_rooms()
+	#generate_3d_rooms()
 
 func initialize_systems() -> void:
 	grid_system = GridSystem.new()

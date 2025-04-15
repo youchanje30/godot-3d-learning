@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://b6r8p4y2nxmkw"]
+
+[ext_resource type="Script" path="res://Navigation/Scripts/Entities/AgentNavigator.gd" id="1_m7t5p"]
+
+[node name="AgentNavigator" type="Node"]
+script = ExtResource("1_m7t5p")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."] 

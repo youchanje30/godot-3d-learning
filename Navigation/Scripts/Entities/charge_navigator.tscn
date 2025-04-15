@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=3 uid="uid://dovfby4qoe2ks"]
+
+[ext_resource type="Script" uid="uid://dp8sweyqp58u0" path="res://Navigation/Scripts/Entities/ChargeNavigator.gd" id="1_n8p4r"]
+
+[node name="ChargeNavigator" type="Node"]
+script = ExtResource("1_n8p4r")
+
+[node name="NavigationAgent3D" type="NavigationAgent3D" parent="."]
